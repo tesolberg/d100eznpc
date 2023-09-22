@@ -1,0 +1,300 @@
+[
+  {
+    "Id": 1,
+    "Name": "A random NPC",
+    "TokenNumber": 0,
+    "Description": "",
+    "Skills": [
+      {
+        "Name": "Athletics",
+        "Value": 20,
+        "Type": 0,
+        "Description": ""
+      },
+      {
+        "Name": "Boating",
+        "Value": 20,
+        "Type": 0,
+        "Description": ""
+      },
+      {
+        "Name": "Brawn",
+        "Value": 20,
+        "Type": 0,
+        "Description": ""
+      },
+      {
+        "Name": "Conceal",
+        "Value": 20,
+        "Type": 0,
+        "Description": ""
+      },
+      {
+        "Name": "Customs",
+        "Value": 20,
+        "Type": 0,
+        "Description": ""
+      },
+      {
+        "Name": "Dance",
+        "Value": 20,
+        "Type": 0,
+        "Description": ""
+      },
+      {
+        "Name": "Deceit",
+        "Value": 20,
+        "Type": 0,
+        "Description": ""
+      },
+      {
+        "Name": "Drive",
+        "Value": 20,
+        "Type": 0,
+        "Description": ""
+      },
+      {
+        "Name": "Endurance",
+        "Value": 20,
+        "Type": 0,
+        "Description": ""
+      },
+      {
+        "Name": "Evade",
+        "Value": 20,
+        "Type": 0,
+        "Description": ""
+      },
+      {
+        "Name": "First Aid",
+        "Value": 20,
+        "Type": 0,
+        "Description": ""
+      },
+      {
+        "Name": "Influence",
+        "Value": 20,
+        "Type": 0,
+        "Description": ""
+      },
+      {
+        "Name": "Insight",
+        "Value": 20,
+        "Type": 0,
+        "Description": ""
+      },
+      {
+        "Name": "Locale",
+        "Value": 20,
+        "Type": 0,
+        "Description": ""
+      },
+      {
+        "Name": "Native Tongue",
+        "Value": 20,
+        "Type": 0,
+        "Description": ""
+      },
+      {
+        "Name": "Perception",
+        "Value": 20,
+        "Type": 0,
+        "Description": ""
+      },
+      {
+        "Name": "Ride",
+        "Value": 20,
+        "Type": 0,
+        "Description": ""
+      },
+      {
+        "Name": "Sing",
+        "Value": 20,
+        "Type": 0,
+        "Description": ""
+      },
+      {
+        "Name": "Stealth",
+        "Value": 20,
+        "Type": 0,
+        "Description": ""
+      },
+      {
+        "Name": "Swim",
+        "Value": 20,
+        "Type": 0,
+        "Description": ""
+      },
+      {
+        "Name": "Unarmed",
+        "Value": 20,
+        "Type": 0,
+        "Description": ""
+      },
+      {
+        "Name": "Willpower",
+        "Value": 20,
+        "Type": 0,
+        "Description": ""
+      },
+      {
+        "Name": "Combat style",
+        "Value": 20,
+        "Type": 1,
+        "Description": ""
+      }
+    ],
+    "PrimaryCompetence": 75,
+    "SecondaryCompetence": 45,
+    "BaseCompetence": 20
+  },
+  {
+    "Id": 2,
+    "Name": "New one",
+    "TokenNumber": 0,
+    "Description": null,
+    "Skills": [
+      {
+        "Name": "Athletics",
+        "Value": 20,
+        "Type": 0,
+        "Description": ""
+      },
+      {
+        "Name": "Boating",
+        "Value": 20,
+        "Type": 0,
+        "Description": ""
+      },
+      {
+        "Name": "Brawn",
+        "Value": 20,
+        "Type": 0,
+        "Description": ""
+      },
+      {
+        "Name": "Conceal",
+        "Value": 20,
+        "Type": 0,
+        "Description": ""
+      },
+      {
+        "Name": "Customs",
+        "Value": 20,
+        "Type": 0,
+        "Description": ""
+      },
+      {
+        "Name": "Dance",
+        "Value": 20,
+        "Type": 0,
+        "Description": ""
+      },
+      {
+        "Name": "Deceit",
+        "Value": 20,
+        "Type": 0,
+        "Description": ""
+      },
+      {
+        "Name": "Drive",
+        "Value": 20,
+        "Type": 0,
+        "Description": ""
+      },
+      {
+        "Name": "Endurance",
+        "Value": 20,
+        "Type": 0,
+        "Description": ""
+      },
+      {
+        "Name": "Evade",
+        "Value": 20,
+        "Type": 0,
+        "Description": ""
+      },
+      {
+        "Name": "First Aid",
+        "Value": 20,
+        "Type": 0,
+        "Description": ""
+      },
+      {
+        "Name": "Influence",
+        "Value": 20,
+        "Type": 0,
+        "Description": ""
+      },
+      {
+        "Name": "Insight",
+        "Value": 20,
+        "Type": 0,
+        "Description": ""
+      },
+      {
+        "Name": "Locale",
+        "Value": 20,
+        "Type": 0,
+        "Description": ""
+      },
+      {
+        "Name": "Native Tongue",
+        "Value": 20,
+        "Type": 0,
+        "Description": ""
+      },
+      {
+        "Name": "Perception",
+        "Value": 20,
+        "Type": 0,
+        "Description": ""
+      },
+      {
+        "Name": "Ride",
+        "Value": 20,
+        "Type": 0,
+        "Description": ""
+      },
+      {
+        "Name": "Sing",
+        "Value": 20,
+        "Type": 0,
+        "Description": ""
+      },
+      {
+        "Name": "Stealth",
+        "Value": 20,
+        "Type": 0,
+        "Description": ""
+      },
+      {
+        "Name": "Swim",
+        "Value": 20,
+        "Type": 0,
+        "Description": ""
+      },
+      {
+        "Name": "Unarmed",
+        "Value": 20,
+        "Type": 0,
+        "Description": ""
+      },
+      {
+        "Name": "Willpower",
+        "Value": 20,
+        "Type": 0,
+        "Description": ""
+      },
+      {
+        "Name": "Combat style",
+        "Value": 20,
+        "Type": 1,
+        "Description": ""
+      }
+    ],
+    "PrimaryCompetence": 75,
+    "SecondaryCompetence": 45,
+    "BaseCompetence": 20
+  }
+]

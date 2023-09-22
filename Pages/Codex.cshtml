@@ -1,0 +1,56 @@
+﻿@page
+@model D100EZNPC.Pages.CodexModel
+@{
+	ViewData["Title"] = "NPC Codex";
+}
+<div class="text-center">
+	<h1 class="display-4">NPC Codex</h1>
+</div>
+
+<form method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="newNpc.Name" class="control-label"></label>
+        <input asp-for="newNpc.Name" class="form-control" />
+        <span asp-validation-for="newNpc.Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </div>
+</form>
+
+<table class="table mt-5">
+    <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Description</th>
+            <th scope="col">Primary</th>
+            <th scope="col">Secondary</th>
+            <th scope="col">Base</th>
+            <th scope="col">Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var npc in Model.NPCs!)
+        {
+            <tr>
+                <td>@npc.Name</td>
+                <td>@npc.Description</td>
+                <td>@npc.PrimaryCompetence</td>
+                <td>@npc.SecondaryCompetence</td>
+                <td>@npc.BaseCompetence</td>
+                <td>
+                    <form method="post" asp-page-handler="Delete" asp-route-id="@npc.Id">
+                        <button class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<partial name="_ValidationScriptsPartial" />
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
