@@ -50,6 +50,11 @@ namespace D100EZNPC.Services
 			File.WriteAllText(path, jsonString);
 		}
 		
+		public NPC GetNPC(int id)
+		{
+			return ((List<NPC>)GetNPCs()!)?.Where(n =>  n.Id == id).FirstOrDefault()!;
+        }
+
 		public void DeleteNPC(int id)
 		{
             List<NPC> npcs = (List<NPC>)GetNPCs()!;

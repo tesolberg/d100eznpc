@@ -34,7 +34,9 @@
         @foreach (var npc in Model.NPCs!)
         {
             <tr>
-                <td>@npc.Name</td>
+                <td>
+                    <a class="nav-link text-dark" asp-area="" asp-page="/NPCDetails">@npc.Name</a>
+                </td>
                 <td>@npc.Description</td>
                 <td>@npc.PrimaryCompetence</td>
                 <td>@npc.SecondaryCompetence</td>
