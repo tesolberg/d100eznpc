@@ -9,7 +9,7 @@ namespace D100EZNPC.Services
 {
 	public class JsonFileNPCService
 	{
-		public JsonFileNPCService(IWebHostEnvironment webHostEnvironment) 
+		public JsonFileNPCService(IWebHostEnvironment webHostEnvironment)
 		{
 			WebHostEnvironment = webHostEnvironment;
 		}
@@ -35,7 +35,7 @@ namespace D100EZNPC.Services
 
 			List<NPC> npcs = (List<NPC>)GetNPCs()!;
 			if (npcs == null) npcs = new List<NPC>();
-			
+
 			npcs.Add(npc);
 
 			JsonSerializerOptions options = new JsonSerializerOptions
@@ -49,34 +49,57 @@ namespace D100EZNPC.Services
 
 			File.WriteAllText(path, jsonString);
 		}
-		
+
+		public void EditNPC(NPC updatedNpc)
+		{
+			List<NPC> npcs = (List<NPC>)GetNPCs()!;
+			if (npcs == null) return;
+
+			// Removes old NPC entry
+			npcs = npcs.Where(n => n.Id != updatedNpc.Id).ToList();
+
+			// Adds updated entry
+			npcs.Add(updatedNpc);
+
+			JsonSerializerOptions options = new JsonSerializerOptions
+			{
+				WriteIndented = true, // Format the JSON with indentation
+			};
+
+			string jsonString = JsonSerializer.Serialize(npcs, options);
+
+			string path = Path.Combine(WebHostEnvironment.WebRootPath, "data", "codex.json");
+
+			File.WriteAllText(path, jsonString);
+		}
+
 		public NPC GetNPC(int id)
 		{
-			return ((List<NPC>)GetNPCs()!)?.Where(n =>  n.Id == id).FirstOrDefault()!;
-        }
+			return ((List<NPC>)GetNPCs()!)?.Where(n => n.Id == id).FirstOrDefault()!;
+		}
 
 		public void DeleteNPC(int id)
 		{
-            List<NPC> npcs = (List<NPC>)GetNPCs()!;
-            
+			List<NPC> npcs = (List<NPC>)GetNPCs()!;
+
 			npcs = npcs.Where(n => n.Id != id).ToList();
-			
-            JsonSerializerOptions options = new JsonSerializerOptions
-            {
-                WriteIndented = true, // Format the JSON with indentation
-            };
 
-            string jsonString = JsonSerializer.Serialize(npcs, options);
+			JsonSerializerOptions options = new JsonSerializerOptions
+			{
+				WriteIndented = true, // Format the JSON with indentation
+			};
 
-            string path = Path.Combine(WebHostEnvironment.WebRootPath, "data", "codex.json");
+			string jsonString = JsonSerializer.Serialize(npcs, options);
 
-            File.WriteAllText(path, jsonString);
-        }
+			string path = Path.Combine(WebHostEnvironment.WebRootPath, "data", "codex.json");
+
+			File.WriteAllText(path, jsonString);
+		}
 
 		int GetNextNPCId()
 		{
 			IEnumerable<NPC>? list = GetNPCs();
-			
+
 			int next = 0;
 
 			foreach (var npc in list!)

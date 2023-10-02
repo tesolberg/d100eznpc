@@ -1,2 +1,2 @@
 # d100eznpc
-An NPC library and combat tracker for d100 rpgs
+An NPC library and combat tracker webapp for d100 tabletop rpgs.

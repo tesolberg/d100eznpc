@@ -15,7 +15,7 @@
         <span asp-validation-for="newNpc.Name" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <input type="submit" value="Create" class="btn btn-primary" />
+        <input type="submit" value="Create New NPC" class="btn btn-primary" />
     </div>
 </form>
 
@@ -23,6 +23,7 @@
     <thead>
         <tr>
             <th scope="col">Name</th>
+            <th scope="col">ID</th>
             <th scope="col">Description</th>
             <th scope="col">Primary</th>
             <th scope="col">Secondary</th>
@@ -35,8 +36,9 @@
         {
             <tr>
                 <td>
-                    <a class="nav-link text-dark" asp-area="" asp-page="/NPCDetails">@npc.Name</a>
+                    <a class="nav-link text-dark" asp-area="" asp-page="/NPCDetails" asp-route-id="@npc.Id">@npc.Name</a>
                 </td>
+                <td>@npc.Id</td>
                 <td>@npc.Description</td>
                 <td>@npc.PrimaryCompetence</td>
                 <td>@npc.SecondaryCompetence</td>

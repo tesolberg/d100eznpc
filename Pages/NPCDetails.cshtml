@@ -1,5 +1,49 @@
 ﻿@page
 @model D100EZNPC.Pages.NPCDetailsModel
 @{
-	<h1>Model</h1>
+	<h1>@Model.npc!.Name</h1>
 }
+
+<form method="post" asp-page-handler="/NPCDetails" asp-route-id="@Model.npc.Id">
+        <button class="btn btn-danger">Post Tester</button>
+    </form>
+
+<table class="table mt-5">
+	<thead>
+		<tr>
+			@foreach (var list in Model.SkillLists!)
+			{
+				<th>@list[0].Value</th>				
+			}
+		</tr>
+	</thead>
+	
+	<tbody>
+		@{
+			int longestSkillList = (Model.SkillLists is not null) ? Model.SkillLists.Max(list => list.Count) : 0 ;
+		}
+
+		@for (int i = 0; i < longestSkillList; i++)
+		{
+			<tr>
+				@foreach (var list in Model.SkillLists!)
+				{
+					@if(list.Count > i)
+					{
+						<td>
+							<form method="post" asp-page-handler="/NPCDetails" asp-route-id="@Model.npc.Id" asp-route-skillName="@list[i].Name">
+								<button>@list[i].Name</button>
+							</form>
+						</td>
+					}
+					else
+					{
+						<td>
+							<div></div>
+						</td>
+					}
+				}
+			</tr>
+		}
+	</tbody>
+</table>
