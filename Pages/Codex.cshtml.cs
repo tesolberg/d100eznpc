@@ -28,6 +28,8 @@ namespace D100EZNPC.Pages
 
         public IActionResult OnPost()
         {
+            // under the hood creates an NPC instance and populates it with binded properties
+
             if (newNpc == null)
             {
                 return Page();

@@ -12,28 +12,51 @@ namespace D100EZNPC.Pages
 
 		[BindProperty]
 		public NPC npc { get; set; } = default!;
-
-		public List<List<Skill>>? SkillLists { get; set; }
-
+        [BindProperty]
+		public int BaseCompetence { get; set; }
+		[BindProperty]
+		public int SecondaryCompetence { get; set; }
+		[BindProperty]
+		public int PrimaryCompetence { get; set; }
+		
 		public NPCDetailsModel(JsonFileNPCService _service, ILogger<NPCDetailsModel> logger)
 		{
 			service = _service;
 			_logger = logger;
 		}
 
-		public void OnGet(string id)
+		public IActionResult OnGet(string id)
 		{
 			npc = service.GetNPC(int.Parse(id));
-			SortSkills();
+			BaseCompetence = npc.BaseCompetence;
+			SecondaryCompetence = npc.SecondaryCompetence;
+			PrimaryCompetence = npc.PrimaryCompetence;
+
+			return Page();
 		}
 
 
-		public IActionResult OnPost(int id, string skillName)
+		public IActionResult OnPostCycleSkillLevel(int id, string skillName)
 		{
 			CycleSkillLevel(skillName, id);
 
 			return RedirectToAction("Get", new { id });
 		}
+
+		public IActionResult OnPostUpdateSkillLevels(int id, int baseCompetence)
+		{
+			NPC updatedNpc = service.GetNPC(id);
+			updatedNpc.BaseCompetence = npc.BaseCompetence;
+			updatedNpc.SecondaryCompetence = npc.SecondaryCompetence;
+			updatedNpc.PrimaryCompetence = npc.PrimaryCompetence;
+
+			service.EditNPC(updatedNpc);
+
+			return RedirectToAction("Get", new { id });
+		}
+
+
+		// PRIVATE METHODS
 
 		private void CycleSkillLevel(string skillName, int id)
 		{
@@ -41,43 +64,25 @@ namespace D100EZNPC.Pages
 
 			npc = service.GetNPC(id);
 
-			Skill skill = npc.Skills.FirstOrDefault(s => s.Name == skillName)!;
-			int currentSkillLevel = skill is not null ? skill.Value : 0;
-			int newSkillLevel = 0;
+			if (npc.BaseSkills.Contains(skillName))
+			{
+				npc.BaseSkills.Remove(skillName);
+				npc.SecondarySkills.Add(skillName);
+			}
+			else if (npc.SecondarySkills.Contains(skillName))
+			{
+				npc.SecondarySkills.Remove(skillName);
+				npc.PrimarySkills.Add(skillName);
+			}
+			else if (npc.PrimarySkills.Contains(skillName))
+			{
+				npc.PrimarySkills.Remove(skillName);
+				npc.BaseSkills.Add(skillName);
+			}
+			else _logger.LogWarning($"{skillName} was not found in any of npc \"{npc.Name}\"'s skill lists");
 
-			if (currentSkillLevel == npc.BaseCompetence) newSkillLevel = npc.SecondaryCompetence;
-			else if (currentSkillLevel == npc.SecondaryCompetence) newSkillLevel = npc.PrimaryCompetence;
-			else newSkillLevel = npc.BaseCompetence;
-
-			skill!.Value = newSkillLevel;
-
-			service.EditNPC(npc);
+            service.EditNPC(npc);
 		}
 
-		private void SortSkills()
-		{
-			SkillLists = new List<List<Skill>>();
-
-			foreach (var skill in npc.Skills)
-			{
-				bool found = false;
-
-				foreach (var list in SkillLists)
-				{
-					if (list.First<Skill>().Value.Equals(skill.Value))
-					{
-						list.Add(skill);
-						found = true;
-						break;
-					}
-				}
-
-				if (!found) SkillLists.Add(new List<Skill> { skill });
-			}
-
-			foreach (var list in SkillLists)
-			{
-			}
-		}
 	}
 }

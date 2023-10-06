@@ -3,45 +3,73 @@
 @{
 	<h1>@Model.npc!.Name</h1>
 }
-
-<form method="post" asp-page-handler="/NPCDetails" asp-route-id="@Model.npc.Id">
-        <button class="btn btn-danger">Post Tester</button>
-    </form>
-
 <table class="table mt-5">
 	<thead>
 		<tr>
-			@foreach (var list in Model.SkillLists!)
-			{
-				<th>@list[0].Value</th>				
-			}
+			<th>Primary Competence</th>
+			<th>Secondary Competence</th>
+			<th>Base Competence</th>
+		</tr>
+		<tr>
+			<form method="post" asp-page-handler="UpdateSkillLevels" asp-route-id="@Model.npc.Id">
+			<th><input type="text" asp-for="npc.PrimaryCompetence" placeholder="@Model.npc.PrimaryCompetence"></th>
+			<th><input type="text" asp-for="npc.SecondaryCompetence" placeholder="@Model.npc.SecondaryCompetence"></th>
+			<th><input type="text" asp-for="npc.BaseCompetence" placeholder="@Model.npc.BaseCompetence"></th>
+			<th><button class="btn btn-primary" type="submit">Update Skill Levels</button></th>
+			</form>
 		</tr>
 	</thead>
-	
-	<tbody>
+	<tbody> <!-- TODO: Kalkulering av vanskelighetsgrader. Legge til AP, Dmg Mod, Hit locations med armor. Våpen. Spesielle trekk/moves/egenskaper -->
 		@{
-			int longestSkillList = (Model.SkillLists is not null) ? Model.SkillLists.Max(list => list.Count) : 0 ;
+			int longestSkillList = Math.Max(
+			Model.npc.PrimarySkills.Count,
+			Math.Max(Model.npc.SecondarySkills.Count,
+			Model.npc.BaseSkills.Count));
 		}
-
 		@for (int i = 0; i < longestSkillList; i++)
 		{
 			<tr>
-				@foreach (var list in Model.SkillLists!)
+				@if (Model.npc.PrimarySkills.Count > i)
 				{
-					@if(list.Count > i)
-					{
-						<td>
-							<form method="post" asp-page-handler="/NPCDetails" asp-route-id="@Model.npc.Id" asp-route-skillName="@list[i].Name">
-								<button>@list[i].Name</button>
-							</form>
-						</td>
-					}
-					else
-					{
-						<td>
-							<div></div>
-						</td>
-					}
+					<td>
+						<form method="post" asp-page-handler="CycleSkillLevel" asp-route-id="@Model.npc.Id" asp-route-skillName="@Model.npc.PrimarySkills[i]">
+							<button>@Model.npc.PrimarySkills[i]</button>
+						</form>
+					</td>
+				}
+				else
+				{
+					<td>
+						<div></div>
+					</td>
+				}
+				@if (Model.npc.SecondarySkills.Count > i)
+				{
+					<td>
+						<form method="post" asp-page-handler="CycleSkillLevel" asp-route-id="@Model.npc.Id" asp-route-skillName="@Model.npc.SecondarySkills[i]">
+							<button>@Model.npc.SecondarySkills[i]</button>
+						</form>
+					</td>
+				}
+				else
+				{
+					<td>
+						<div></div>
+					</td>
+				}
+				@if (Model.npc.BaseSkills.Count > i)
+				{
+					<td>
+						<form method="post" asp-page-handler="CycleSkillLevel" asp-route-id="@Model.npc.Id" asp-route-skillName="@Model.npc.BaseSkills[i]">
+							<button>@Model.npc.BaseSkills[i]</button>
+						</form>
+					</td>
+				}
+				else
+				{
+					<td>
+						<div></div>
+					</td>
 				}
 			</tr>
 		}
