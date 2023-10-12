@@ -5,33 +5,33 @@
     "TokenNumber": 0,
     "Description": null,
     "PrimarySkills": [
-      "Deceit",
-      "Insight",
-      "Perception",
-      "Sing",
-      "Willpower",
-      "Combat style"
-    ],
-    "SecondarySkills": [
-      "Conceal",
-      "Dance",
       "Endurance",
-      "Evade",
-      "First Aid",
-      "Influence",
-      "Locale",
-      "Native Tongue",
-      "Ride",
+      "Willpower",
+      "Perception",
+      "Insight",
+      "Customs",
       "Stealth"
     ],
-    "BaseSkills": [
+    "SecondarySkills": [
+      "Locale",
+      "Influence",
+      "Dance",
+      "Combat style",
       "Athletics",
+      "Conceal"
+    ],
+    "BaseSkills": [
       "Boating",
       "Brawn",
-      "Customs",
-      "Drive",
+      "Ride",
       "Swim",
-      "Unarmed"
+      "First Aid",
+      "Unarmed",
+      "Native Tongue",
+      "Sing",
+      "Drive",
+      "Evade",
+      "Deceit"
     ],
     "PrimaryCompetence": 125,
     "SecondaryCompetence": 77,

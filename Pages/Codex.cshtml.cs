@@ -9,9 +9,6 @@ namespace D100EZNPC.Pages
     {
         internal List<NPC>? NPCs;
 
-        [BindProperty]
-        public NPC newNpc { get; set; } = default!;
-
         readonly JsonFileNPCService service;
 
 		[ActivatorUtilitiesConstructor]
@@ -24,20 +21,6 @@ namespace D100EZNPC.Pages
         {
             NPCs = (List<NPC>?)service.GetNPCs();
 
-        }
-
-        public IActionResult OnPost()
-        {
-            // under the hood creates an NPC instance and populates it with binded properties
-
-            if (newNpc == null)
-            {
-                return Page();
-            }
-
-            service.AddNPC(newNpc);
-
-            return RedirectToAction("Get");
         }
 
         public IActionResult OnPostDelete(int id)

@@ -7,6 +7,7 @@ namespace D100EZNPC.Models
 {
     public class NPC
     {
+
         public int Id { get; set; } = 0;
 
         [Required]

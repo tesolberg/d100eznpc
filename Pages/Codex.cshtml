@@ -3,24 +3,21 @@
 @{
 	ViewData["Title"] = "NPC Codex";
 }
+
+<script src="https://kit.fontawesome.com/8a204a0aae.js" crossorigin="anonymous"></script>
+
 <div class="text-center">
 	<h1 class="display-4">NPC Codex</h1>
 </div>
-
-<form method="post">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <div class="form-group">
-        <label asp-for="newNpc.Name" class="control-label"></label>
-        <input asp-for="newNpc.Name" class="form-control" />
-        <span asp-validation-for="newNpc.Name" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <input type="submit" value="Create New NPC" class="btn btn-primary" />
-    </div>
-</form>
-
-<table class="table mt-5">
+<div>
+</div>
+<table class="table">
     <thead>
+        <tr>
+            <a class="nav-link text-dark" asp-page="/CreateNPC">
+                <i class="fa-solid fa-plus" style="color:dodgerblue"></i>
+            </a>
+        </tr>
         <tr>
             <th scope="col">Name</th>
             <th scope="col">ID</th>

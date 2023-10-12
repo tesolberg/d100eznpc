@@ -1,5 +1,22 @@
 ﻿@page
+@using D100EZNPC.Utilities;
 @model D100EZNPC.Pages.NPCDetailsModel
+@section Scripts {
+	<!-- Ensures scroll position remains on page load -->
+	<script>
+		window.addEventListener('load', function () 
+		{
+			console.log("Hello scroll position: " + @Model.ScrollPosition);
+			window.scrollTo({
+				top: @Model.ScrollPosition,
+				left: 0,
+				behavior: 'instant',
+			});
+		})
+	</script>
+	<script src="/js/NPCDetails.js"></script>
+}
+
 @{
 	<h1>@Model.npc!.Name</h1>
 }
@@ -18,60 +35,71 @@
 			<th><button class="btn btn-primary" type="submit">Update Skill Levels</button></th>
 			</form>
 		</tr>
+		<tr>
+			@{
+				int[] skillVals = { Model.npc.PrimaryCompetence, Model.npc.SecondaryCompetence, Model.npc.BaseCompetence };
+			}
+			@for (int i = 0; i < skillVals.Length; i++)
+			{
+				<td>
+					<div>
+						Very Easy &lt;= @SkillCalculator.VeryEasy(skillVals[i]) <br />
+						Easy &lt;= @SkillCalculator.Easy(skillVals[i]) <br />
+						Standard &lt;= @skillVals[i] <br />
+						Hard &lt;= @SkillCalculator.Hard(skillVals[i]) <br />
+						Herculean &lt;= @SkillCalculator.Herculean(skillVals[i])
+					</div>
+				</td>
+			}
+			<td>
+				<button id="rollSkill" class="btn btn-success">Roll (TODO)</button><!--TODO-->
+			</td>
+		</tr>
 	</thead>
-	<tbody> <!-- TODO: Kalkulering av vanskelighetsgrader. Legge til AP, Dmg Mod, Hit locations med armor. Våpen. Spesielle trekk/moves/egenskaper -->
-		@{
-			int longestSkillList = Math.Max(
-			Model.npc.PrimarySkills.Count,
-			Math.Max(Model.npc.SecondarySkills.Count,
-			Model.npc.BaseSkills.Count));
-		}
-		@for (int i = 0; i < longestSkillList; i++)
-		{
+	<form id="skillForm" method="post">
+		<input type="hidden" asp-for="ScrollPosition" id="scrollPosition" value="" />
+	<tbody>
+		<!-- TODO: Kalkulering av vanskelighetsgrader. Legge til AP, Dmg Mod, Hit locations med armor. Våpen. Spesielle trekk/moves/egenskaper -->
+			@{
+				int longestSkillList = Math.Max(
+				Model.npc.PrimarySkills.Count,
+				Math.Max(Model.npc.SecondarySkills.Count,
+				Model.npc.BaseSkills.Count));
+			}
+			@for (int i = 0; i < longestSkillList; i++)
+			{
 			<tr>
-				@if (Model.npc.PrimarySkills.Count > i)
-				{
-					<td>
-						<form method="post" asp-page-handler="CycleSkillLevel" asp-route-id="@Model.npc.Id" asp-route-skillName="@Model.npc.PrimarySkills[i]">
-							<button>@Model.npc.PrimarySkills[i]</button>
-						</form>
-					</td>
-				}
-				else
-				{
-					<td>
-						<div></div>
-					</td>
-				}
-				@if (Model.npc.SecondarySkills.Count > i)
-				{
-					<td>
-						<form method="post" asp-page-handler="CycleSkillLevel" asp-route-id="@Model.npc.Id" asp-route-skillName="@Model.npc.SecondarySkills[i]">
-							<button>@Model.npc.SecondarySkills[i]</button>
-						</form>
-					</td>
-				}
-				else
-				{
-					<td>
-						<div></div>
-					</td>
-				}
-				@if (Model.npc.BaseSkills.Count > i)
-				{
-					<td>
-						<form method="post" asp-page-handler="CycleSkillLevel" asp-route-id="@Model.npc.Id" asp-route-skillName="@Model.npc.BaseSkills[i]">
-							<button>@Model.npc.BaseSkills[i]</button>
-						</form>
-					</td>
-				}
-				else
-				{
-					<td>
-						<div></div>
-					</td>
-				}
+					@if (Model.npc.PrimarySkills.Count > i)
+					{
+					<td><button class="btn-skill" type="submit" asp-page-handler="CycleSkillLevel" asp-route-id="@Model.npc.Id" asp-route-SkillName="@Model.npc.PrimarySkills[i]">@Model.npc.PrimarySkills[i]</button></td>
+					}
+					else
+					{
+					<td></td>
+					}
+					@if (Model.npc.SecondarySkills.Count > i)
+					{
+					<td><button class="btn-skill" type="submit" asp-page-handler="CycleSkillLevel" asp-route-id="@Model.npc.Id" asp-route-SkillName="@Model.npc.SecondarySkills[i]">@Model.npc.SecondarySkills[i]</button></td>
+					}
+					else
+					{
+					<td></td>
+					}
+					@if (Model.npc.BaseSkills.Count > i)
+					{
+					<td><button class="btn-skill" type="submit" asp-page-handler="CycleSkillLevel" asp-route-id="@Model.npc.Id" asp-route-SkillName="@Model.npc.BaseSkills[i]">@Model.npc.BaseSkills[i]</button></td>
+					}
+					else
+					{
+					<td></td>
+					}
 			</tr>
-		}
+			}
 	</tbody>
+	</form>
+
 </table>
+
+
+
+
