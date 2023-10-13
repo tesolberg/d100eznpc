@@ -2,13 +2,19 @@
 @using D100EZNPC.Utilities;
 @model D100EZNPC.Pages.NPCDetailsModel
 @section Scripts {
+
 	<!-- Ensures scroll position remains on page load -->
 	<script>
 		window.addEventListener('load', function () 
 		{
-			console.log("Hello scroll position: " + @Model.ScrollPosition);
+			const maxVerticalScroll = Math.max(
+				document.documentElement.scrollHeight, document.body.scrollHeight
+			) - window.innerHeight;
+
+			const scrollTo = Math.min(maxVerticalScroll, @Model.ScrollPosition);
+
 			window.scrollTo({
-				top: @Model.ScrollPosition,
+				top: scrollTo,
 				left: 0,
 				behavior: 'instant',
 			});
@@ -20,6 +26,8 @@
 @{
 	<h1>@Model.npc!.Name</h1>
 }
+@await Html.PartialAsync("_SkillLists")
+
 <table class="table mt-5">
 	<thead>
 		<tr>
@@ -57,9 +65,8 @@
 		</tr>
 	</thead>
 	<form id="skillForm" method="post">
-		<input type="hidden" asp-for="ScrollPosition" id="scrollPosition" value="" />
+		<input type="hidden" asp-for="ScrollPosition" id="scrollPosition" name="ScrollPosition" value="" />
 	<tbody>
-		<!-- TODO: Kalkulering av vanskelighetsgrader. Legge til AP, Dmg Mod, Hit locations med armor. Våpen. Spesielle trekk/moves/egenskaper -->
 			@{
 				int longestSkillList = Math.Max(
 				Model.npc.PrimarySkills.Count,

@@ -28,9 +28,15 @@ namespace D100EZNPC.Pages
 			_logger = logger;
 		}
 
-		public IActionResult OnGet(string id, int scrollPosition = 0)
+		public IActionResult OnGet(string id)
 		{
-			ScrollPosition = scrollPosition;
+			if (TempData.ContainsKey("ScrollPosition"))
+			{
+				if (TempData.Peek("ScrollPosition") is int scrollPosition)
+				{
+					ScrollPosition = scrollPosition;
+				}
+			}
 
 			npc = service.GetNPC(int.Parse(id));
 			BaseCompetence = npc.BaseCompetence;
@@ -46,6 +52,7 @@ namespace D100EZNPC.Pages
 		public IActionResult OnPostCycleSkillLevel(int id, string skillName)
 		{
 			_logger.LogInformation("SP at POST: " + ScrollPosition.ToString());
+			TempData["ScrollPosition"] = ScrollPosition;
 
 			npc = service.GetNPC(id);
 
@@ -68,7 +75,7 @@ namespace D100EZNPC.Pages
 
 			service.EditNPC(npc); ;
 
-			return RedirectToAction("Get", new { id , ScrollPosition});
+			return RedirectToAction("Get", new { id });
 		}
 
 		public IActionResult OnPostUpdateSkillLevels(int id, int baseCompetence)
