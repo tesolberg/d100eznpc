@@ -13,12 +13,6 @@ namespace D100EZNPC.Pages
 
 		[BindProperty]
 		public NPC npc { get; set; } = default!;
-        [BindProperty]
-		public int BaseCompetence { get; set; }
-		[BindProperty]
-		public int SecondaryCompetence { get; set; }
-		[BindProperty]
-		public int PrimaryCompetence { get; set; }
 		[BindProperty]
 		public int ScrollPosition { get; set; }
 
@@ -39,19 +33,18 @@ namespace D100EZNPC.Pages
 			}
 
 			npc = service.GetNPC(int.Parse(id));
-			BaseCompetence = npc.BaseCompetence;
-			SecondaryCompetence = npc.SecondaryCompetence;
-			PrimaryCompetence = npc.PrimaryCompetence;
-			
-			_logger.LogInformation("SP at GET: " + ScrollPosition.ToString());
-
+		
 			return Page();
+		}
+
+		public void OnPost()
+		{
+			_logger.LogInformation("Ajax post recieved");
 		}
 
 
 		public IActionResult OnPostCycleSkillLevel(int id, string skillName)
 		{
-			_logger.LogInformation("SP at POST: " + ScrollPosition.ToString());
 			TempData["ScrollPosition"] = ScrollPosition;
 
 			npc = service.GetNPC(id);
@@ -84,6 +77,21 @@ namespace D100EZNPC.Pages
 			updatedNpc.BaseCompetence = npc.BaseCompetence;
 			updatedNpc.SecondaryCompetence = npc.SecondaryCompetence;
 			updatedNpc.PrimaryCompetence = npc.PrimaryCompetence;
+
+			service.EditNPC(updatedNpc);
+
+			return RedirectToAction("Get", new { id });
+		}
+
+		public IActionResult OnPostToggleUnique(int id)
+		{
+			_logger.LogInformation("Toggleing generic for id " + id.ToString());
+
+			TempData["ScrollPosition"] = ScrollPosition;
+
+			NPC updatedNpc = service.GetNPC(id);
+
+			updatedNpc.Unique = !updatedNpc.Unique;
 
 			service.EditNPC(updatedNpc);
 

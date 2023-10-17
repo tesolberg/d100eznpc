@@ -1,32 +1,19 @@
 ﻿@page
+@using D100EZNPC.Models;
 @using D100EZNPC.Utilities;
 @model D100EZNPC.Pages.NPCDetailsModel
-@section Scripts {
 
-	<!-- Ensures scroll position remains on page load -->
-	<script>
-		window.addEventListener('load', function () 
-		{
-			const maxVerticalScroll = Math.max(
-				document.documentElement.scrollHeight, document.body.scrollHeight
-			) - window.innerHeight;
 
-			const scrollTo = Math.min(maxVerticalScroll, @Model.ScrollPosition);
+<h1>@Model.npc!.Name</h1>
+<div>
+	@{
+		string uniqueButtonText = Model.npc.Unique ? "Unique" : "Generic";
+	}
+</div>
 
-			window.scrollTo({
-				top: scrollTo,
-				left: 0,
-				behavior: 'instant',
-			});
-		})
-	</script>
-	<script src="/js/NPCDetails.js"></script>
-}
-
-@{
-	<h1>@Model.npc!.Name</h1>
-}
-@await Html.PartialAsync("_SkillLists")
+<form method="post" asp-page-handler="ToggleUnique">
+	<button type="submit">@uniqueButtonText</button>
+</form>
 
 <table class="table mt-5">
 	<thead>
@@ -59,19 +46,23 @@
 					</div>
 				</td>
 			}
-			<td>
-				<button id="rollSkill" class="btn btn-success">Roll (TODO)</button><!--TODO-->
-			</td>
 		</tr>
 	</thead>
 	<form id="skillForm" method="post">
 		<input type="hidden" asp-for="ScrollPosition" id="scrollPosition" name="ScrollPosition" value="" />
 	<tbody>
 			@{
-				int longestSkillList = Math.Max(
-				Model.npc.PrimarySkills.Count,
-				Math.Max(Model.npc.SecondarySkills.Count,
-				Model.npc.BaseSkills.Count));
+				int longestSkillList = 0;
+				NPC npc = Model.npc;
+				if (npc.PrimarySkills != null &&
+					npc.SecondarySkills != null &&
+					npc.BaseSkills != null)
+				{
+					longestSkillList = Math.Max(
+					Model.npc.PrimarySkills.Count,
+					Math.Max(Model.npc.SecondarySkills.Count,
+					Model.npc.BaseSkills.Count));
+				}
 			}
 			@for (int i = 0; i < longestSkillList; i++)
 			{
@@ -104,9 +95,27 @@
 			}
 	</tbody>
 	</form>
-
 </table>
 
 
+@section Scripts {
 
+	<!-- Ensures scroll position remains on page load -->
+	<script>
+		window.addEventListener('load', function () {
+			const maxVerticalScroll = Math.max(
+				document.documentElement.scrollHeight, document.body.scrollHeight
+			) - window.innerHeight;
+
+			const scrollTo = Math.min(maxVerticalScroll, @Model.ScrollPosition);
+
+			window.scrollTo({
+				top: scrollTo,
+				left: 0,
+				behavior: 'instant',
+			});
+		})
+	</script>
+	<script src="/js/NPCDetails.js"></script>
+}
 

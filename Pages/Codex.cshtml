@@ -4,7 +4,6 @@
 	ViewData["Title"] = "NPC Codex";
 }
 
-<script src="https://kit.fontawesome.com/8a204a0aae.js" crossorigin="anonymous"></script>
 
 <div class="text-center">
 	<h1 class="display-4">NPC Codex</h1>
@@ -36,7 +35,7 @@
                     <a class="nav-link text-dark" asp-area="" asp-page="/NPCDetails" asp-route-id="@npc.Id">@npc.Name</a>
                 </td>
                 <td>@npc.Id</td>
-                <td>@npc.Description</td>
+                <td>@npc.Notes</td>
                 <td>@npc.PrimaryCompetence</td>
                 <td>@npc.SecondaryCompetence</td>
                 <td>@npc.BaseCompetence</td>
@@ -50,8 +49,9 @@
     </tbody>
 </table>
 
-<partial name="_ValidationScriptsPartial" />
+<script src="https://kit.fontawesome.com/8a204a0aae.js" crossorigin="anonymous"></script>
+@*<partial name="_ValidationScriptsPartial" />
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
-}
+}*@

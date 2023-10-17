@@ -9,7 +9,7 @@ namespace D100EZNPC.Pages
     public class CreateNPCModel : PageModel
     {
         [BindProperty]
-        public NPC newNpc { get; set; } = default!;
+        public string newNpcName { get; set; } = default!;
 
         readonly JsonFileNPCService service;
 
@@ -26,14 +26,12 @@ namespace D100EZNPC.Pages
 
         public IActionResult OnPost()
         {
-            // under the hood creates an NPC instance and populates it with binded properties
-
-            if (newNpc == null)
+            string name = Request.Form["Name"]!;
+            if (name != "")
             {
-                return Page();
+                NPC newNPC = new NPC(0, name);
+                service.AddNewNPC(newNPC);
             }
-
-            service.AddNPC(newNpc);
 
             return RedirectToPage("Codex");
         }

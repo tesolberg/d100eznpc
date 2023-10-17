@@ -1,10 +1,13 @@
 using D100EZNPC.Services;
+using Microsoft.AspNetCore.Mvc;
+using D100EZNPC.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddTransient<JsonFileNPCService>();
+builder.Services.AddDbContext<NPCContext>();
 
 var app = builder.Build();
 

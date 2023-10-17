@@ -28,9 +28,8 @@ namespace D100EZNPC.Services
 				});
 		}
 
-		public void AddNPC(NPC npc)
+		public void AddNewNPC(NPC npc)
 		{
-			npc.GenerateSkills();
 			npc.Id = GetNextNPCId();
 
 			List<NPC> npcs = (List<NPC>)GetNPCs()!;
