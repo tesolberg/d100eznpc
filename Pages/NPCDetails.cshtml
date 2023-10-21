@@ -2,120 +2,100 @@
 @using D100EZNPC.Models;
 @using D100EZNPC.Utilities;
 @model D100EZNPC.Pages.NPCDetailsModel
+@Html.AntiForgeryToken()
 
-
-<h1>@Model.npc!.Name</h1>
 <div>
-	@{
-		string uniqueButtonText = Model.npc.Unique ? "Unique" : "Generic";
-	}
+	<h1>
+		@Model.npc!.Name
+		<button class="btn">
+			<i class="fa-regular fa-pen-to-square"></i>
+		</button>
+		<button class="btn">
+			<i class="fa-regular fa-floppy-disk"></i>
+		</button>
+	</h1>
+
+	<!-- Toggle for unique/generic-->
+	<input type="checkbox" data-toggle="toggle" data-size="small">
+
 </div>
 
-<form method="post" asp-page-handler="ToggleUnique">
-	<button type="submit">@uniqueButtonText</button>
-</form>
 
-<table class="table mt-5">
-	<thead>
-		<tr>
-			<th>Primary Competence</th>
-			<th>Secondary Competence</th>
-			<th>Base Competence</th>
-		</tr>
-		<tr>
-			<form method="post" asp-page-handler="UpdateSkillLevels" asp-route-id="@Model.npc.Id">
-			<th><input type="text" asp-for="npc.PrimaryCompetence" placeholder="@Model.npc.PrimaryCompetence"></th>
-			<th><input type="text" asp-for="npc.SecondaryCompetence" placeholder="@Model.npc.SecondaryCompetence"></th>
-			<th><input type="text" asp-for="npc.BaseCompetence" placeholder="@Model.npc.BaseCompetence"></th>
-			<th><button class="btn btn-primary" type="submit">Update Skill Levels</button></th>
-			</form>
-		</tr>
-		<tr>
-			@{
-				int[] skillVals = { Model.npc.PrimaryCompetence, Model.npc.SecondaryCompetence, Model.npc.BaseCompetence };
-			}
-			@for (int i = 0; i < skillVals.Length; i++)
+<!-- Skill levels and success thresholds -->
+<div class="container">
+	<div class="row fw-bold">
+		<div class="col">
+			Base
+			<input type="text" asp-for="npc.BaseCompetence" placeholder="@Model.npc.BaseCompetence">
+		</div>
+		<div class="col">
+			Secondary
+			<input type="text" asp-for="npc.SecondaryCompetence" placeholder="@Model.npc.SecondaryCompetence">
+		</div>
+		<div class="col">
+			Primary
+			<input type="text" asp-for="npc.PrimaryCompetence" placeholder="@Model.npc.PrimaryCompetence">
+		</div>
+	</div>
+	<div class="row">
+		@{
+			int[] skillVals = { Model.npc.BaseCompetence, Model.npc.SecondaryCompetence, Model.npc.PrimaryCompetence };
+		}
+		@for (int i = 0; i < skillVals.Length; i++)
+		{
+			<div class="col">
+				Very Easy &lt;= @SkillCalculator.VeryEasy(skillVals[i]) <br />
+				Easy &lt;= @SkillCalculator.Easy(skillVals[i]) <br />
+				Standard &lt;= @skillVals[i] <br />
+				Hard &lt;= @SkillCalculator.Hard(skillVals[i]) <br />
+				Herculean &lt;= @SkillCalculator.Herculean(skillVals[i])
+			</div>
+		}
+	</div>
+</div>
+
+
+<!-- Skill table -->
+<div class="container">
+	<div class="row">
+		<div class="col base-skills" id="base-skills">
+			@foreach (var s in Model.SortedSkills![0])
 			{
-				<td>
-					<div>
-						Very Easy &lt;= @SkillCalculator.VeryEasy(skillVals[i]) <br />
-						Easy &lt;= @SkillCalculator.Easy(skillVals[i]) <br />
-						Standard &lt;= @skillVals[i] <br />
-						Hard &lt;= @SkillCalculator.Hard(skillVals[i]) <br />
-						Herculean &lt;= @SkillCalculator.Herculean(skillVals[i])
-					</div>
-				</td>
+				<button id="@s.Name!.Replace(" ", "-")" class="skill-button base-skill">@s.Name</button>
+				
 			}
-		</tr>
-	</thead>
-	<form id="skillForm" method="post">
-		<input type="hidden" asp-for="ScrollPosition" id="scrollPosition" name="ScrollPosition" value="" />
-	<tbody>
-			@{
-				int longestSkillList = 0;
-				NPC npc = Model.npc;
-				if (npc.PrimarySkills != null &&
-					npc.SecondarySkills != null &&
-					npc.BaseSkills != null)
-				{
-					longestSkillList = Math.Max(
-					Model.npc.PrimarySkills.Count,
-					Math.Max(Model.npc.SecondarySkills.Count,
-					Model.npc.BaseSkills.Count));
-				}
-			}
-			@for (int i = 0; i < longestSkillList; i++)
+		</div>
+		<div class="col secondary-skills" id="secondary-skills">
+			@foreach (var s in Model.SortedSkills![1])
 			{
-			<tr>
-					@if (Model.npc.PrimarySkills.Count > i)
-					{
-					<td><button class="btn-skill" type="submit" asp-page-handler="CycleSkillLevel" asp-route-id="@Model.npc.Id" asp-route-SkillName="@Model.npc.PrimarySkills[i]">@Model.npc.PrimarySkills[i]</button></td>
-					}
-					else
-					{
-					<td></td>
-					}
-					@if (Model.npc.SecondarySkills.Count > i)
-					{
-					<td><button class="btn-skill" type="submit" asp-page-handler="CycleSkillLevel" asp-route-id="@Model.npc.Id" asp-route-SkillName="@Model.npc.SecondarySkills[i]">@Model.npc.SecondarySkills[i]</button></td>
-					}
-					else
-					{
-					<td></td>
-					}
-					@if (Model.npc.BaseSkills.Count > i)
-					{
-					<td><button class="btn-skill" type="submit" asp-page-handler="CycleSkillLevel" asp-route-id="@Model.npc.Id" asp-route-SkillName="@Model.npc.BaseSkills[i]">@Model.npc.BaseSkills[i]</button></td>
-					}
-					else
-					{
-					<td></td>
-					}
-			</tr>
+				<button id="@s.Name!.Replace(" ", "-")" class="skill-button secondary-skill">@s.Name</button>
 			}
-	</tbody>
-	</form>
-</table>
+		</div><div class="col primary-skills" id="primary-skills">
+			@foreach (var s in Model.SortedSkills![2])
+			{
+				<button id="@s.Name!.Replace(" ", "-")" class="skill-button primary-skill">@s.Name</button>
+			}
+		</div>
+	</div>
+</div>
+
+<input id="npc-id" type="hidden" value="@Model.npc.Id" />
+
 
 
 @section Scripts {
-
-	<!-- Ensures scroll position remains on page load -->
-	<script>
-		window.addEventListener('load', function () {
-			const maxVerticalScroll = Math.max(
-				document.documentElement.scrollHeight, document.body.scrollHeight
-			) - window.innerHeight;
-
-			const scrollTo = Math.min(maxVerticalScroll, @Model.ScrollPosition);
-
-			window.scrollTo({
-				top: scrollTo,
-				left: 0,
-				behavior: 'instant',
-			});
-		})
-	</script>
 	<script src="/js/NPCDetails.js"></script>
+	<script src="https://kit.fontawesome.com/8a204a0aae.js" crossorigin="anonymous"></script>
+	<script>
+		$(function () {
+			$('input[type="checkbox"]').bootstrapToggle({
+				on: 'Unique',
+				off: 'Generic',
+				style: 'ios' // You can choose different styles here
+			});
+		});
+	</script>
+	<link rel="stylesheet" href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css">
+	<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 }
 

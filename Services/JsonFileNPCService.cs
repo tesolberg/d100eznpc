@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 
 namespace D100EZNPC.Services
 {
-	public class JsonFileNPCService
+	public class JsonFileNPCService : INPCService
 	{
 		public JsonFileNPCService(IWebHostEnvironment webHostEnvironment)
 		{
@@ -18,7 +18,7 @@ namespace D100EZNPC.Services
 
 		private string JsonFileName => Path.Combine(WebHostEnvironment.WebRootPath, "data", "codex.json");
 
-		public IEnumerable<NPC>? GetNPCs()
+		public IEnumerable<NPC>? GetAllNPCs()
 		{
 			using var jsonFileReader = File.OpenText(JsonFileName);
 			return JsonSerializer.Deserialize<List<NPC>>(jsonFileReader.ReadToEnd(),
@@ -32,7 +32,7 @@ namespace D100EZNPC.Services
 		{
 			npc.Id = GetNextNPCId();
 
-			List<NPC> npcs = (List<NPC>)GetNPCs()!;
+			List<NPC> npcs = (List<NPC>)GetAllNPCs()!;
 			if (npcs == null) npcs = new List<NPC>();
 
 			npcs.Add(npc);
@@ -51,7 +51,7 @@ namespace D100EZNPC.Services
 
 		public void EditNPC(NPC updatedNpc)
 		{
-			List<NPC> npcs = (List<NPC>)GetNPCs()!;
+			List<NPC> npcs = (List<NPC>)GetAllNPCs()!;
 			if (npcs == null) return;
 
 			// Removes old NPC entry
@@ -74,12 +74,12 @@ namespace D100EZNPC.Services
 
 		public NPC GetNPC(int id)
 		{
-			return ((List<NPC>)GetNPCs()!)?.Where(n => n.Id == id).FirstOrDefault()!;
+			return ((List<NPC>)GetAllNPCs()!)?.Where(n => n.Id == id).FirstOrDefault()!;
 		}
 
 		public void DeleteNPC(int id)
 		{
-			List<NPC> npcs = (List<NPC>)GetNPCs()!;
+			List<NPC> npcs = (List<NPC>)GetAllNPCs()!;
 
 			npcs = npcs.Where(n => n.Id != id).ToList();
 
@@ -97,7 +97,7 @@ namespace D100EZNPC.Services
 
 		int GetNextNPCId()
 		{
-			IEnumerable<NPC>? list = GetNPCs();
+			IEnumerable<NPC>? list = GetAllNPCs();
 
 			int next = 0;
 

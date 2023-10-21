@@ -9,7 +9,7 @@ namespace D100EZNPC.Pages
     {
         internal List<NPC>? NPCs;
 
-        readonly JsonFileNPCService service;
+        readonly INPCService service;
 
 		[ActivatorUtilitiesConstructor]
 		public CodexModel(JsonFileNPCService JsonFileNPCService)
@@ -19,7 +19,7 @@ namespace D100EZNPC.Pages
 
         public void OnGet()
         {
-            NPCs = (List<NPC>?)service.GetNPCs();
+            NPCs = (List<NPC>?)service.GetAllNPCs();
 
         }
 

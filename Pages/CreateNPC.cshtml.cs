@@ -11,7 +11,7 @@ namespace D100EZNPC.Pages
         [BindProperty]
         public string newNpcName { get; set; } = default!;
 
-        readonly JsonFileNPCService service;
+        readonly INPCService service;
 
         [ActivatorUtilitiesConstructor]
         public CreateNPCModel(JsonFileNPCService JsonFileNPCService)
@@ -29,7 +29,7 @@ namespace D100EZNPC.Pages
             string name = Request.Form["Name"]!;
             if (name != "")
             {
-                NPC newNPC = new NPC(0, name);
+                NPC newNPC = new NPC(name);
                 service.AddNewNPC(newNPC);
             }
 

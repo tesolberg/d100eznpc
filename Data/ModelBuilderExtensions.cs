@@ -8,9 +8,19 @@ namespace D100EZNPC.Data
 	{
 		public static ModelBuilder Seed(this ModelBuilder modelBuilder)
 		{
+			NPC npc1 = new NPC("Celt");
+			npc1.Id = -1;
+			npc1.HitLocations.Id = -1;
+
+			List<Weapon> weapons= new List<Weapon>();
+			Weapon shortSword = new Weapon("Short sword");
+			shortSword.Id = -1;
+
+			weapons.Add(shortSword);
+			npc1.Weapons = weapons;
+
 			modelBuilder.Entity<NPC>().HasData(
-				new NPC(0, "Celt"),
-				new NPC(1, "Roman Legionnaire")
+				npc1
 				);
 			return modelBuilder;
 		}

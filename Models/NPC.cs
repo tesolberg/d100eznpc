@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -7,8 +8,9 @@ namespace D100EZNPC.Models
 {
 	public class NPC
 	{
-
-		public int Id { get; set; } = 0;
+		[Key]
+		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+		public int Id { get; set; }
 
 		[Required]
 		public string Name { get; set; } = default!;
@@ -18,28 +20,25 @@ namespace D100EZNPC.Models
 		public string Notes { get; set; } = default!;
 
 		// Skills
-		public IList<String> PrimarySkills { get; set; } = default!;
-		public IList<String> SecondarySkills { get; set; } = default!;
-		public IList<String> BaseSkills { get; set; } = default!;
+		public List<Skill> Skills { get; set; } = default!;
 
 		public int PrimaryCompetence { get; set; }
 		public int SecondaryCompetence { get; set; }
 		public int BaseCompetence { get; set; }
 
 		// Weapons
-		public IList<Weapon> Weapons { get; set; }
+		public List<Weapon>? Weapons { get; set; }
 
         // Hit locations
-        public IList<HitLocation> HitLocations { get; set; } = new List<HitLocation>();
+        public HitLocations? HitLocations { get; set; }
 
 		public NPC()
 		{
 
 		}
 
-		public NPC(int id, string name,  int primaryCompetence = 75, int secondaryCompetence = 45, int baseCompetence = 20, bool unique = false)
+		public NPC(string name,  int primaryCompetence = 75, int secondaryCompetence = 45, int baseCompetence = 20, bool unique = false, List<Weapon> weapons = default!)
 		{
-			Id = id;
 			Name = name;
 			TokenNumber = 0;
 			Unique = unique;
@@ -48,49 +47,77 @@ namespace D100EZNPC.Models
 			SecondaryCompetence = secondaryCompetence;
 			BaseCompetence = baseCompetence;
 
-			Weapons = new List<Weapon>();
+			Weapons = weapons is null ? new List<Weapon>() : weapons;
 
 			GenerateSkills();
-			GenerateHitLocations();
+			HitLocations = new HitLocations();
 		}
 
 		// Initalizes all skills to base level
 		public void GenerateSkills()
 		{
-			PrimarySkills = new List<String>();
-			SecondarySkills = new List<String>();
-			BaseSkills = new List<String>();
+			Skills = new List<Skill>();
 
 			for (int i = 0; i < SkillLibrary.standardSkills.Length; i++)
 			{
-				BaseSkills.Add(SkillLibrary.standardSkills[i]);
+				Skills.Add(new Skill(SkillLibrary.standardSkills[i], BaseCompetence));
 			}
 
 			for (int i = 0; i < SkillLibrary.professionalSkills.Length; i++)
 			{
-				BaseSkills.Add(SkillLibrary.professionalSkills[i]);
+				Skills.Add(new Skill(SkillLibrary.professionalSkills[i], BaseCompetence));
 			}
 		}
 
-		// Hit Locations
-		public void GenerateHitLocations(int conPlusSize = 16)
+		public Skill GetSkill(string skillName)
 		{
-			HitLocations.Add(new HitLocation("Right Leg", 1, 3, 0, conPlusSize));
-			HitLocations.Add(new HitLocation("Left Leg", 4, 6, 0, conPlusSize));
-			HitLocations.Add(new HitLocation("Abdomen", 7, 9, 1, conPlusSize));
-			HitLocations.Add(new HitLocation("Chest", 10, 12, 2, conPlusSize));
-			HitLocations.Add(new HitLocation("Right Arm", 13, 15, -1, conPlusSize));
-			HitLocations.Add(new HitLocation("Left Arm", 16, 18, -1, conPlusSize));
-			HitLocations.Add(new HitLocation("Head", 19, 20, 0, conPlusSize));
+			foreach (var skill in Skills)
+			{
+				if (skill.Name == skillName)
+				{
+					return skill;
+				}
+			}
+			throw new Exception(skillName + " not found");
 		}
 
 		public override string ToString() => JsonSerializer.Serialize<NPC>(this);
 		public string ToStringFormatted() => JsonSerializer.Serialize<NPC>(this, new JsonSerializerOptions { WriteIndented = true });
 	}
 
+	public class HitLocations
+	{
+		[Key]
+		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+		public int Id { get; set; }
+        public HitLocation RightLeg { get; set; }
+		public HitLocation LeftLeg { get; set; }
+
+		public HitLocation Abdomen { get; set; }
+		public HitLocation Chest { get; set; }
+		public HitLocation RightArm { get; set; }
+		public HitLocation LeftArm { get; set; }
+		public HitLocation Head{ get; set; }
+
+		public HitLocations()
+		{
+			int conPlusSize = 16;
+			RightLeg = (new HitLocation("Right Leg", 1, 3, 0, conPlusSize));
+			LeftLeg = (new HitLocation("Left Leg", 4, 6, 0, conPlusSize));
+			Abdomen = (new HitLocation("Abdomen", 7, 9, 1, conPlusSize));
+			Chest = (new HitLocation("Chest", 10, 12, 2, conPlusSize));
+			RightArm = (new HitLocation("Right Arm", 13, 15, -1, conPlusSize));
+			LeftArm = (new HitLocation("Left Arm", 16, 18, -1, conPlusSize));
+			Head = (new HitLocation("Head", 19, 20, 0, conPlusSize));
+		}
+	}
 
 	public class HitLocation
 	{
+		[Key]
+		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+		public int HitLocationId { get; set; }
+
 		public HitLocation(string name, int rangeStart, int rangeEnd, int hPMod, int conPlusSize = 16, int armorPoints = 0)
 		{
 			Name = name;
@@ -125,4 +152,18 @@ namespace D100EZNPC.Models
 			return standardHP;
 		}
 	}
+
+	public class Skill
+	{
+        public int Id { get; set; }
+        public string? Name { get; set; }
+        public int Value { get; set; }
+        public string? Notes { get; set; }
+
+		public Skill(string name, int value) 
+		{ 
+			Name = name;
+			Value = value;
+		}
+    }
 }

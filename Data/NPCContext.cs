@@ -8,6 +8,7 @@ namespace D100EZNPC.Data
 	{
 		public DbSet<NPC> NPCs { get; set; }
 		public DbSet<Weapon> Weapons { get; set; }
+		public DbSet<HitLocation> HitLocations { get; set; }
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
@@ -18,7 +19,8 @@ namespace D100EZNPC.Data
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			//base.OnModelCreating(modelBuilder);
-			modelBuilder.ApplyConfiguration(new NPCConfiguration());
+
+			modelBuilder.ApplyConfiguration(new NPCConfiguration()).Seed();
 		}
 	}
 }
