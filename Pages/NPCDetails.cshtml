@@ -7,10 +7,10 @@
 <div>
 	<h1>
 		@Model.npc!.Name
-		<button class="btn">
+		<button id="edit-btn" class="btn">
 			<i class="fa-regular fa-pen-to-square"></i>
 		</button>
-		<button class="btn">
+		<button id="save-btn" class="btn">
 			<i class="fa-regular fa-floppy-disk"></i>
 		</button>
 	</h1>
@@ -25,16 +25,19 @@
 <div class="container">
 	<div class="row fw-bold">
 		<div class="col">
-			Base
-			<input type="text" asp-for="npc.BaseCompetence" placeholder="@Model.npc.BaseCompetence">
+			<span>Base</span>
+			<span class="competence-number">@Model.npc.BaseCompetence</span>
+			<input class="competence-edit" type="text" asp-for="npc.BaseCompetence" placeholder="@Model.npc.BaseCompetence">
 		</div>
 		<div class="col">
-			Secondary
-			<input type="text" asp-for="npc.SecondaryCompetence" placeholder="@Model.npc.SecondaryCompetence">
+			<span>Secondary</span>
+			<span class="competence-number">@Model.npc.SecondaryCompetence</span>
+			<input class="competence-edit" type="text" asp-for="npc.SecondaryCompetence" placeholder="@Model.npc.SecondaryCompetence">
 		</div>
 		<div class="col">
-			Primary
-			<input type="text" asp-for="npc.PrimaryCompetence" placeholder="@Model.npc.PrimaryCompetence">
+			<span>Primary</span>
+			<span class="competence-number">@Model.npc.PrimaryCompetence</span>
+			<input class="competence-edit" type="text" asp-for="npc.PrimaryCompetence" placeholder="@Model.npc.PrimaryCompetence">
 		</div>
 	</div>
 	<div class="row">
@@ -96,6 +99,7 @@
 		});
 	</script>
 	<link rel="stylesheet" href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css">
+	<link rel="stylesheet" href="/css/NPCDetails.css"/>
 	<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 }
 

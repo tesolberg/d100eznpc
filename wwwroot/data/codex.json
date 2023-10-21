@@ -245,251 +245,6 @@
     }
   },
   {
-    "Id": 0,
-    "Name": "fd",
-    "TokenNumber": 0,
-    "Unique": true,
-    "Notes": "",
-    "Skills": [
-      {
-        "Id": 0,
-        "Name": "Athletics",
-        "Value": 75,
-        "Notes": null
-      },
-      {
-        "Id": 0,
-        "Name": "Boating",
-        "Value": 45,
-        "Notes": null
-      },
-      {
-        "Id": 0,
-        "Name": "Brawn",
-        "Value": 20,
-        "Notes": null
-      },
-      {
-        "Id": 0,
-        "Name": "Conceal",
-        "Value": 45,
-        "Notes": null
-      },
-      {
-        "Id": 0,
-        "Name": "Customs",
-        "Value": 45,
-        "Notes": null
-      },
-      {
-        "Id": 0,
-        "Name": "Dance",
-        "Value": 20,
-        "Notes": null
-      },
-      {
-        "Id": 0,
-        "Name": "Deceit",
-        "Value": 20,
-        "Notes": null
-      },
-      {
-        "Id": 0,
-        "Name": "Drive",
-        "Value": 45,
-        "Notes": null
-      },
-      {
-        "Id": 0,
-        "Name": "Endurance",
-        "Value": 75,
-        "Notes": null
-      },
-      {
-        "Id": 0,
-        "Name": "Evade",
-        "Value": 20,
-        "Notes": null
-      },
-      {
-        "Id": 0,
-        "Name": "First Aid",
-        "Value": 20,
-        "Notes": null
-      },
-      {
-        "Id": 0,
-        "Name": "Influence",
-        "Value": 20,
-        "Notes": null
-      },
-      {
-        "Id": 0,
-        "Name": "Insight",
-        "Value": 20,
-        "Notes": null
-      },
-      {
-        "Id": 0,
-        "Name": "Locale",
-        "Value": 20,
-        "Notes": null
-      },
-      {
-        "Id": 0,
-        "Name": "Native Tongue",
-        "Value": 20,
-        "Notes": null
-      },
-      {
-        "Id": 0,
-        "Name": "Perception",
-        "Value": 20,
-        "Notes": null
-      },
-      {
-        "Id": 0,
-        "Name": "Ride",
-        "Value": 20,
-        "Notes": null
-      },
-      {
-        "Id": 0,
-        "Name": "Sing",
-        "Value": 20,
-        "Notes": null
-      },
-      {
-        "Id": 0,
-        "Name": "Stealth",
-        "Value": 20,
-        "Notes": null
-      },
-      {
-        "Id": 0,
-        "Name": "Swim",
-        "Value": 20,
-        "Notes": null
-      },
-      {
-        "Id": 0,
-        "Name": "Unarmed",
-        "Value": 20,
-        "Notes": null
-      },
-      {
-        "Id": 0,
-        "Name": "Willpower",
-        "Value": 20,
-        "Notes": null
-      },
-      {
-        "Id": 0,
-        "Name": "Combat style",
-        "Value": 20,
-        "Notes": null
-      }
-    ],
-    "PrimaryCompetence": 75,
-    "SecondaryCompetence": 45,
-    "BaseCompetence": 20,
-    "Weapons": [],
-    "HitLocations": {
-      "Id": 0,
-      "RightLeg": {
-        "HitLocationId": 0,
-        "Name": "Right Leg",
-        "RangeStart": 1,
-        "RangeEnd": 3,
-        "PassiveBlocked": false,
-        "Armor": "",
-        "ArmorPoints": 0,
-        "HPCurrent": 4,
-        "ConPlusSize": 16,
-        "HPMod": 0,
-        "HPMax": 4
-      },
-      "LeftLeg": {
-        "HitLocationId": 0,
-        "Name": "Left Leg",
-        "RangeStart": 4,
-        "RangeEnd": 6,
-        "PassiveBlocked": false,
-        "Armor": "",
-        "ArmorPoints": 0,
-        "HPCurrent": 4,
-        "ConPlusSize": 16,
-        "HPMod": 0,
-        "HPMax": 4
-      },
-      "Abdomen": {
-        "HitLocationId": 0,
-        "Name": "Abdomen",
-        "RangeStart": 7,
-        "RangeEnd": 9,
-        "PassiveBlocked": false,
-        "Armor": "",
-        "ArmorPoints": 0,
-        "HPCurrent": 5,
-        "ConPlusSize": 16,
-        "HPMod": 1,
-        "HPMax": 5
-      },
-      "Chest": {
-        "HitLocationId": 0,
-        "Name": "Chest",
-        "RangeStart": 10,
-        "RangeEnd": 12,
-        "PassiveBlocked": false,
-        "Armor": "",
-        "ArmorPoints": 0,
-        "HPCurrent": 6,
-        "ConPlusSize": 16,
-        "HPMod": 2,
-        "HPMax": 6
-      },
-      "RightArm": {
-        "HitLocationId": 0,
-        "Name": "Right Arm",
-        "RangeStart": 13,
-        "RangeEnd": 15,
-        "PassiveBlocked": false,
-        "Armor": "",
-        "ArmorPoints": 0,
-        "HPCurrent": 3,
-        "ConPlusSize": 16,
-        "HPMod": -1,
-        "HPMax": 3
-      },
-      "LeftArm": {
-        "HitLocationId": 0,
-        "Name": "Left Arm",
-        "RangeStart": 16,
-        "RangeEnd": 18,
-        "PassiveBlocked": false,
-        "Armor": "",
-        "ArmorPoints": 0,
-        "HPCurrent": 3,
-        "ConPlusSize": 16,
-        "HPMod": -1,
-        "HPMax": 3
-      },
-      "Head": {
-        "HitLocationId": 0,
-        "Name": "Head",
-        "RangeStart": 19,
-        "RangeEnd": 20,
-        "PassiveBlocked": false,
-        "Armor": "",
-        "ArmorPoints": 0,
-        "HPCurrent": 4,
-        "ConPlusSize": 16,
-        "HPMod": 0,
-        "HPMax": 4
-      }
-    }
-  },
-  {
     "Id": 1,
     "Name": "test",
     "TokenNumber": 0,
@@ -877,6 +632,251 @@
         "Id": 0,
         "Name": "Combat style",
         "Value": 45,
+        "Notes": null
+      }
+    ],
+    "PrimaryCompetence": 75,
+    "SecondaryCompetence": 45,
+    "BaseCompetence": 20,
+    "Weapons": [],
+    "HitLocations": {
+      "Id": 0,
+      "RightLeg": {
+        "HitLocationId": 0,
+        "Name": "Right Leg",
+        "RangeStart": 1,
+        "RangeEnd": 3,
+        "PassiveBlocked": false,
+        "Armor": "",
+        "ArmorPoints": 0,
+        "HPCurrent": 4,
+        "ConPlusSize": 16,
+        "HPMod": 0,
+        "HPMax": 4
+      },
+      "LeftLeg": {
+        "HitLocationId": 0,
+        "Name": "Left Leg",
+        "RangeStart": 4,
+        "RangeEnd": 6,
+        "PassiveBlocked": false,
+        "Armor": "",
+        "ArmorPoints": 0,
+        "HPCurrent": 4,
+        "ConPlusSize": 16,
+        "HPMod": 0,
+        "HPMax": 4
+      },
+      "Abdomen": {
+        "HitLocationId": 0,
+        "Name": "Abdomen",
+        "RangeStart": 7,
+        "RangeEnd": 9,
+        "PassiveBlocked": false,
+        "Armor": "",
+        "ArmorPoints": 0,
+        "HPCurrent": 5,
+        "ConPlusSize": 16,
+        "HPMod": 1,
+        "HPMax": 5
+      },
+      "Chest": {
+        "HitLocationId": 0,
+        "Name": "Chest",
+        "RangeStart": 10,
+        "RangeEnd": 12,
+        "PassiveBlocked": false,
+        "Armor": "",
+        "ArmorPoints": 0,
+        "HPCurrent": 6,
+        "ConPlusSize": 16,
+        "HPMod": 2,
+        "HPMax": 6
+      },
+      "RightArm": {
+        "HitLocationId": 0,
+        "Name": "Right Arm",
+        "RangeStart": 13,
+        "RangeEnd": 15,
+        "PassiveBlocked": false,
+        "Armor": "",
+        "ArmorPoints": 0,
+        "HPCurrent": 3,
+        "ConPlusSize": 16,
+        "HPMod": -1,
+        "HPMax": 3
+      },
+      "LeftArm": {
+        "HitLocationId": 0,
+        "Name": "Left Arm",
+        "RangeStart": 16,
+        "RangeEnd": 18,
+        "PassiveBlocked": false,
+        "Armor": "",
+        "ArmorPoints": 0,
+        "HPCurrent": 3,
+        "ConPlusSize": 16,
+        "HPMod": -1,
+        "HPMax": 3
+      },
+      "Head": {
+        "HitLocationId": 0,
+        "Name": "Head",
+        "RangeStart": 19,
+        "RangeEnd": 20,
+        "PassiveBlocked": false,
+        "Armor": "",
+        "ArmorPoints": 0,
+        "HPCurrent": 4,
+        "ConPlusSize": 16,
+        "HPMod": 0,
+        "HPMax": 4
+      }
+    }
+  },
+  {
+    "Id": 0,
+    "Name": "fd",
+    "TokenNumber": 0,
+    "Unique": true,
+    "Notes": "",
+    "Skills": [
+      {
+        "Id": 0,
+        "Name": "Athletics",
+        "Value": 75,
+        "Notes": null
+      },
+      {
+        "Id": 0,
+        "Name": "Boating",
+        "Value": 75,
+        "Notes": null
+      },
+      {
+        "Id": 0,
+        "Name": "Brawn",
+        "Value": 20,
+        "Notes": null
+      },
+      {
+        "Id": 0,
+        "Name": "Conceal",
+        "Value": 45,
+        "Notes": null
+      },
+      {
+        "Id": 0,
+        "Name": "Customs",
+        "Value": 45,
+        "Notes": null
+      },
+      {
+        "Id": 0,
+        "Name": "Dance",
+        "Value": 20,
+        "Notes": null
+      },
+      {
+        "Id": 0,
+        "Name": "Deceit",
+        "Value": 20,
+        "Notes": null
+      },
+      {
+        "Id": 0,
+        "Name": "Drive",
+        "Value": 45,
+        "Notes": null
+      },
+      {
+        "Id": 0,
+        "Name": "Endurance",
+        "Value": 75,
+        "Notes": null
+      },
+      {
+        "Id": 0,
+        "Name": "Evade",
+        "Value": 20,
+        "Notes": null
+      },
+      {
+        "Id": 0,
+        "Name": "First Aid",
+        "Value": 20,
+        "Notes": null
+      },
+      {
+        "Id": 0,
+        "Name": "Influence",
+        "Value": 20,
+        "Notes": null
+      },
+      {
+        "Id": 0,
+        "Name": "Insight",
+        "Value": 20,
+        "Notes": null
+      },
+      {
+        "Id": 0,
+        "Name": "Locale",
+        "Value": 20,
+        "Notes": null
+      },
+      {
+        "Id": 0,
+        "Name": "Native Tongue",
+        "Value": 20,
+        "Notes": null
+      },
+      {
+        "Id": 0,
+        "Name": "Perception",
+        "Value": 20,
+        "Notes": null
+      },
+      {
+        "Id": 0,
+        "Name": "Ride",
+        "Value": 20,
+        "Notes": null
+      },
+      {
+        "Id": 0,
+        "Name": "Sing",
+        "Value": 20,
+        "Notes": null
+      },
+      {
+        "Id": 0,
+        "Name": "Stealth",
+        "Value": 20,
+        "Notes": null
+      },
+      {
+        "Id": 0,
+        "Name": "Swim",
+        "Value": 20,
+        "Notes": null
+      },
+      {
+        "Id": 0,
+        "Name": "Unarmed",
+        "Value": 20,
+        "Notes": null
+      },
+      {
+        "Id": 0,
+        "Name": "Willpower",
+        "Value": 20,
+        "Notes": null
+      },
+      {
+        "Id": 0,
+        "Name": "Combat style",
+        "Value": 20,
         "Notes": null
       }
     ],

@@ -1,8 +1,30 @@
 ﻿
 $(function () {
     AddSkillButtonListeners();
+    AddEditAndSaveButtonListener();
 });
 
+// Edit NPC
+const competenceNumbers = $(".competence-number");
+const competenceEdits = $(".competence-edit")
+
+function AddEditAndSaveButtonListener() {
+    $("#edit-btn").on("click", (evt) => {
+        competenceNumbers.css("display", "none");
+        competenceEdits.css("display", "inline-block");
+    })
+    
+    $("#save-btn").on("click", (evt) => {
+        competenceEdits.css("display", "none");
+        competenceNumbers.css("display", "inline-block");
+    })
+}
+
+
+
+
+
+// Skill buttons
 
 function AddSkillButtonListeners() {
     $('.skill-button').on('click', function (evt) {
