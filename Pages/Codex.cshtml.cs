@@ -21,6 +21,8 @@ namespace D100EZNPC.Pages
         {
             NPCs = (List<NPC>?)service.GetAllNPCs();
 
+            NPCs = NPCs?.OrderBy(x => x.Name).ToList();
+
         }
 
         public IActionResult OnPostDelete(int id)

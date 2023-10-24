@@ -29,7 +29,8 @@ function AddEditAndSaveButtonListener() {
 function AddSkillButtonListeners() {
     $('.skill-button').on('click', function (evt) {
 
-        ToggleSkillColumn(evt.target.innerHTML)
+        //ToggleSkillColumn(evt.target.innerHTML)
+        FadeToNewColumn(evt.target.innerHTML);
 
         let npcId = $("#npc-id").val();
 
@@ -39,7 +40,7 @@ function AddSkillButtonListeners() {
             url: "/NPCDetails?handler=CycleSkillLevel",
             data: { id: npcId, skillName: evt.target.innerHTML },
             success: function (data) {
-                console.log(data);
+                //console.log(data);
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log("AJAX error: " + textStatus + ", " + errorThrown);
@@ -51,28 +52,65 @@ function AddSkillButtonListeners() {
     });
 }
 
+function FadeToNewColumn(skillName) {
+    const skill = $("#" + skillName.toLowerCase().replace(/\s/g, "-"));
+
+    skill.fadeToggle("fast", function () {
+        ToggleSkillColumn(skillName);
+    });
+}
+
 
 function ToggleSkillColumn(skillName) {
 
-    const skill = $("#" + skillName.replace(/\s/g, "-"));
+    const skill = $("#" + skillName.toLowerCase().replace(/\s/g, "-"));
+
+    skill.fadeToggle();
 
     // Setter ny klassetilhørighet
     if (skill.hasClass("base-skill")) {
         skill.removeClass("base-skill");
         skill.addClass("secondary-skill")
-        skill.appendTo($("#secondary-skills"))
+        console.log("Moving to secondary");
+        AppendAlphabetically(skill, $("#secondary-skills"));
     }
     else if (skill.hasClass("secondary-skill")) {
         skill.removeClass("secondary-skill");
         skill.addClass("primary-skill")
-        skill.appendTo($("#primary-skills"))
+        console.log("Moving to primary");
+        AppendAlphabetically(skill, $("#primary-skills"))
     }
     else {
         skill.removeClass("primary-skill");
         skill.addClass("base-skill")
-        skill.appendTo($("#base-skills"))
+        console.log("Moving to base");
+        AppendAlphabetically(skill, $("#base-skills"))
     }
 }
+
+
+function AppendAlphabetically(skill, parent) {
+    var skillText = skill.text();
+
+    var inserted = false;
+    parent.children().each(function () {
+        var childText = $(this).text();
+        console.log("Comparing " + skillText + " to " + childText + ": " + (skillText < childText));
+        if (skillText < childText) {
+            console.log("Inserting before: " + childText);
+            skill.insertBefore(this);
+            inserted = true;
+            return false;
+        }
+    });
+
+    // If not inserted yet, it's the last in the sort
+    if (!inserted) {
+        parent.append(skill);
+    }
+}
+
+
 
 
 

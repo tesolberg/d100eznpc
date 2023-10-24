@@ -1,4 +1,12 @@
-﻿body {
+﻿:root {
+    --color-1: #F2CDA0;
+    --color-2: #B6BFA3;
+    --color-3: #F2EEE9;
+    --color-4: #D9BFA9;
+    --color-5: #00B3AD;
+}
+
+body {
 
 }
 
@@ -6,3 +14,31 @@
     width: 50px;
     display: none;
 }
+.skill-button {
+    background-color: var(--color-3);
+    margin: 3px 1px;
+}
+
+#combat-style {
+    background-color : var(--color-2);
+}
+
+#endurance {
+    background-color: var(--color-1);
+}
+
+
+#willpower {
+    background-color: var(--color-1);
+}
+
+
+#brawn {
+    background-color: var(--color-1);
+}
+
+
+#evade {
+    background-color: var(--color-1);
+}
+
