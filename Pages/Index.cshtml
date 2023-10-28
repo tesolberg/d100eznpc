@@ -1,10 +1,49 @@
 ﻿@page
 @model IndexModel
+@Html.AntiForgeryToken()
+
 @{
     ViewData["Title"] = "Encounter Tracker";
 }
 
+
 <div class="text-center">
     <h1 class="display-4">Encounter Tracker</h1>
 </div>
+<div id="tracker">
+	<div class="row">
+		<div class="col-md-2">Add/Remove</div>
+		<div class="col-md-1">Init</div>
+		<div class="col">Name</div>
+		<div class="col">HP and Armor</div>
+		<div class="col">Skills</div>
+	</div>
 
+</div>
+<div id="search-section">
+	<div id="search-field">
+		<label for="search-entry">Search</label>
+		<input type="text" id="search-entry" name="search-entry" placeholder="NPC name" />
+	</div>
+	<div id="search-result">
+		@{
+			foreach (var npc in @Model.NPCs!)
+			{
+				string onClickFunction = "GetNpcAndAddToTracker(" + npc.Id + ")";
+				<div class="row">
+					<div class="col-1">
+						<button type="button" onclick=@onClickFunction class="btn-sm btn-primary">Add</button>
+					</div>
+					<div class="col">@npc.Name</div>
+				</div>
+			}
+		}
+	</div>
+</div>
+
+
+<link rel="stylesheet" href="~/css/Index.css"/>
+
+@section scripts{
+	<script src="/js/Index.js"></script>
+}

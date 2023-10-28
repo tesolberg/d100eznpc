@@ -2,6 +2,7 @@
 $(function () {
     AddSkillButtonListeners();
     AddEditAndSaveButtonListener();
+    AddUniqueToggleListener();
 });
 
 // Edit NPC
@@ -21,11 +22,35 @@ function AddEditAndSaveButtonListener() {
 }
 
 
+// Unique button
+function AddUniqueToggleListener() {
+    $("#unique-toggle").change("click", (evt) => {
 
+        // Gets the value of the checkbox
+        const uniqueChecked = $("#unique-toggle").prop("checked");
+        let npcId = $("#npc-id").val();
+
+        // Requests change to unique status
+        $.ajax({
+            type: "POST",
+            headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
+            url: "/NPCDetails?handler=SetUnique",
+            data: { id: npcId, unique: uniqueChecked },
+            success: function (data) {
+                //console.log(data);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log("AJAX error: " + textStatus + ", " + errorThrown);
+                console.log("Error response: " + jqXHR.responseText);
+                $("#unique-toggle").prop("checked") = !uniqueChecked;
+            }
+        })
+
+    });
+}
 
 
 // Skill buttons
-
 function AddSkillButtonListeners() {
     $('.skill-button').on('click', function (evt) {
 

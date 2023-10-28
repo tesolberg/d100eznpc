@@ -16,7 +16,17 @@
 	</h1>
 
 	<!-- Toggle for unique/generic-->
-	<input type="checkbox" data-toggle="toggle" data-size="small">
+	@{
+		if (Model.npc.Unique)
+		{
+		<input id="unique-toggle" type="checkbox" data-toggle="toggle" data-size="small" checked data-onstyle="success" data-offstyle="secondary">
+		}
+		else
+		{
+			<input id="unique-toggle" type="checkbox" data-toggle="toggle" data-size="small" unchecked data-onstyle="success" data-offstyle="secondary">
+		}
+	}
+	
 
 </div>
 

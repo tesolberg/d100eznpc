@@ -33,7 +33,7 @@ namespace D100EZNPC.Pages
 
 		public void OnPost()
 		{
-			_logger.LogInformation("Ajax post recieved");
+			_logger.LogInformation("Generic ajax post recieved");
 		}
 
 
@@ -66,15 +66,13 @@ namespace D100EZNPC.Pages
 			return RedirectToAction("Get", new { id });
 		}
 
-		public IActionResult OnPostToggleUnique(int id)
+		public IActionResult OnPostSetUnique(int id, bool unique)
 		{
-			_logger.LogInformation("Toggleing generic for id " + id.ToString());
-
-			TempData["ScrollPosition"] = ScrollPosition;
+			_logger.LogInformation("Setting unique for id " + id.ToString() + " to " + unique);
 
 			NPC updatedNpc = service.GetNPC(id);
 
-			updatedNpc.Unique = !updatedNpc.Unique;
+			updatedNpc.Unique = unique;
 
 			service.EditNPC(updatedNpc);
 
