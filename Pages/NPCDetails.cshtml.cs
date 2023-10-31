@@ -54,12 +54,14 @@ namespace D100EZNPC.Pages
 			return Content(skillName + " value changed to " + skill.Value);
 		}
 
-		public IActionResult OnPostUpdateSkillLevels(int id, int baseCompetence)
+		public IActionResult OnPostUpdateCompetenceLevels(int id)
 		{
 			NPC updatedNpc = service.GetNPC(id);
 			updatedNpc.BaseCompetence = npc.BaseCompetence;
 			updatedNpc.SecondaryCompetence = npc.SecondaryCompetence;
 			updatedNpc.PrimaryCompetence = npc.PrimaryCompetence;
+
+			_logger.LogInformation($"Updating skill levels to: {updatedNpc.BaseCompetence} / {updatedNpc.SecondaryCompetence} / {updatedNpc.PrimaryCompetence}");
 
 			service.EditNPC(updatedNpc);
 
@@ -68,10 +70,10 @@ namespace D100EZNPC.Pages
 
 		public IActionResult OnPostSetUnique(int id, bool unique)
 		{
-			_logger.LogInformation("Setting unique for id " + id.ToString() + " to " + unique);
-
 			NPC updatedNpc = service.GetNPC(id);
 
+			_logger.LogInformation("Setting " + updatedNpc.Name + " unique to " + unique);
+		
 			updatedNpc.Unique = unique;
 
 			service.EditNPC(updatedNpc);

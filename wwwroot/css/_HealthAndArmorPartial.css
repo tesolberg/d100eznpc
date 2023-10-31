@@ -1,0 +1,42 @@
+﻿body {
+}
+
+
+
+.hit-locations-container-super{
+    width: fit-content;
+}
+
+.hit-locations-container {
+    display: flex;
+    justify-content: center;
+}
+
+.hit-location {
+    width: 100px;
+    border: solid 2px #B6BFA3;
+    margin: 3px;
+}
+
+
+
+.alteration-btn {
+    position: relative;
+    top: 5px;
+    background-color: transparent;
+    border: none;
+}
+
+.hpap-text {
+    display: inline-block;
+    height: 50px;
+    width: 60px;
+}
+
+.hpap-text > * {
+    margin: 0;
+    padding: 0;
+    display: block;
+    text-align: center;
+}
+

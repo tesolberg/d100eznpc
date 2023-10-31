@@ -1,0 +1,47 @@
+﻿@using D100EZNPC.Models;
+@using Microsoft.AspNetCore.Html;
+@model int;
+
+@{
+	void BuildHitLocation(string location)
+	{
+		string loc = location + "-entry-" + Model;
+		<div id="@loc">
+			<div class="hit-location row no-gutters rounded p-1">
+				<div class="col p-0">
+					<button class="alteration-btn p-0"><i class="fa-solid fa-minus alteration-btn"></i>	</button>
+				</div>
+				<div class="col-10 hpap-text p-0">
+					<p id="hp-text">HP: 5/5</p>
+					<p id="ap-text">AP: 1</p>
+				</div>
+				<div class="col p-0">
+					<button class="alteration-btn p-0"><i class="fa-solid fa-plus alteration-btn"></i></button>
+				</div>
+			</div>
+		</div>
+	}
+
+	BuildHitLocation("head");
+	BuildHitLocation("left-arm");
+	BuildHitLocation("torso");
+	BuildHitLocation("right-arm");
+	BuildHitLocation("abdomen");
+	BuildHitLocation("left-leg");
+	BuildHitLocation("right-leg");
+
+	string containerIdHead = "head-container-entry-" + Model;
+	string containerIdTorso = "torso-container-entry-" + Model;
+	string containerIdAbdomen = "abdomen-container-entry-" + Model;
+	string containerIdLeg = "leg-container-entry-" + Model;
+
+	<div class="hit-locations-container-super">
+		<div id=@containerIdHead class="hit-locations-container head-container"></div>
+		<div id=@containerIdTorso class="hit-locations-container torso-container"></div>
+		<div id=@containerIdAbdomen class="hit-locations-container abdomen-container"></div>
+		<div id=@containerIdLeg class="hit-locations-container leg-container"></div>
+	</div>
+}
+
+
+<link rel="stylesheet" href="~/css/_HealthAndArmorPartial.css" />

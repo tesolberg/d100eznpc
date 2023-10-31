@@ -8,6 +8,10 @@ namespace D100EZNPC.Models
 {
 	public class NPC
 	{
+		private int primaryCompetence;
+		private int secondaryCompetence;
+		private int baseCompetence;
+
 		[Key]
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		public int Id { get; set; }
@@ -22,30 +26,70 @@ namespace D100EZNPC.Models
 		// Skills
 		public List<Skill> Skills { get; set; } = default!;
 
-		public int PrimaryCompetence { get; set; }
-		public int SecondaryCompetence { get; set; }
-		public int BaseCompetence { get; set; }
+		public int PrimaryCompetence
+		{
+			get => primaryCompetence;
+			set
+			{
+				if (Skills != null)
+				{
+					foreach (Skill skill in Skills)
+					{
+						if (skill.Value == PrimaryCompetence) skill.Value = value;
+					}
+				}
+				primaryCompetence = value;
+			}
+		}
+		public int SecondaryCompetence
+		{
+			get => secondaryCompetence; set
+			{
+				if (Skills != null)
+				{
+					foreach (Skill skill in Skills)
+					{
+						if (skill.Value == SecondaryCompetence) skill.Value = value;
+					}
+				}
+				secondaryCompetence = value;
+			}
+		}
+		public int BaseCompetence
+		{
+			get => baseCompetence; set
+			{
+				if (Skills != null)
+				{
+					foreach (Skill skill in Skills)
+					{
+						if (skill.Value == BaseCompetence) skill.Value = value;
+					}
+				}
+				baseCompetence = value;
+			}
+		}
 
 		// Weapons
 		public List<Weapon>? Weapons { get; set; }
 
-        // Hit locations
-        public HitLocations? HitLocations { get; set; }
+		// Hit locations
+		public HitLocations? HitLocations { get; set; }
 
 		public NPC()
 		{
 
 		}
 
-		public NPC(string name,  int primaryCompetence = 75, int secondaryCompetence = 45, int baseCompetence = 20, bool unique = false, List<Weapon> weapons = default!)
+		public NPC(string name, int primaryCompetence = 75, int secondaryCompetence = 45, int baseCompetence = 20, bool unique = false, List<Weapon> weapons = default!)
 		{
 			Name = name;
 			TokenNumber = 0;
 			Unique = unique;
 			Notes = "";
-			PrimaryCompetence = primaryCompetence;
-			SecondaryCompetence = secondaryCompetence;
-			BaseCompetence = baseCompetence;
+			this.primaryCompetence = primaryCompetence;
+			this.secondaryCompetence = secondaryCompetence;
+			this.baseCompetence = baseCompetence;
 
 			Weapons = weapons is null ? new List<Weapon>() : weapons;
 
@@ -90,14 +134,14 @@ namespace D100EZNPC.Models
 		[Key]
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		public int Id { get; set; }
-        public HitLocation RightLeg { get; set; }
+		public HitLocation RightLeg { get; set; }
 		public HitLocation LeftLeg { get; set; }
 
 		public HitLocation Abdomen { get; set; }
 		public HitLocation Chest { get; set; }
 		public HitLocation RightArm { get; set; }
 		public HitLocation LeftArm { get; set; }
-		public HitLocation Head{ get; set; }
+		public HitLocation Head { get; set; }
 
 		public HitLocations()
 		{
@@ -155,15 +199,15 @@ namespace D100EZNPC.Models
 
 	public class Skill
 	{
-        public int Id { get; set; }
-        public string? Name { get; set; }
-        public int Value { get; set; }
-        public string? Notes { get; set; }
+		public int Id { get; set; }
+		public string? Name { get; set; }
+		public int Value { get; set; }
+		public string? Notes { get; set; }
 
-		public Skill(string name, int value) 
-		{ 
+		public Skill(string name, int value)
+		{
 			Name = name;
 			Value = value;
 		}
-    }
+	}
 }

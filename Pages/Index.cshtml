@@ -7,18 +7,23 @@
 }
 
 
+<!--TRACKER-->
 <div class="text-center">
     <h1 class="display-4">Encounter Tracker</h1>
 </div>
 <div id="tracker">
-	<div class="row">
-		<div class="col-md-2">Add/Remove</div>
-		<div class="col-md-1">Init</div>
-		<div class="col">Name</div>
-		<div class="col">HP and Armor</div>
-		<div class="col">Skills</div>
+	<div class="" id="tracker_headers">
+		<div class="tracker_add-remove">A/R</div>
+		<div class="tracker_init">Init</div>
+		<div class="tracker_name">Name</div>
+		<div class="tracker_hpap">HP and Armor</div>
+		<div class="tracker_skills">Skills</div>
 	</div>
+	<div id="tracker_entries"></div>
 
+	<br />
+
+<!--SEARCH-->
 </div>
 <div id="search-section">
 	<div id="search-field">
@@ -43,6 +48,7 @@
 
 
 <link rel="stylesheet" href="~/css/Index.css"/>
+<link rel="stylesheet" href="~/css/_HealthAndArmorPartial.css" />
 
 @section scripts{
 	<script src="/js/Index.js"></script>

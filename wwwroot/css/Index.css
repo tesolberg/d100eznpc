@@ -1,7 +1,49 @@
 ﻿body {
-}
 
+}
 
 .add-remove {
     width: 50px;
 }
+
+.tracker-entry {
+    display: flex;
+    background-color: var(--color-3);
+    border-radius: 7px;
+    padding: 5px;
+    margin-top: 5px;
+}
+
+#tracker_headers {
+    background-color: var(--color-2);
+    border-radius: 7px;
+    padding: 5px;
+    display: flex;
+}
+
+#tracker_entries {
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+/* Tracker columns */
+
+.tracker_add-remove {
+    min-width: 50px;
+}
+
+.tracker_init {
+    min-width: 50px;
+}
+.tracker_name {
+    min-width: 150px;
+}
+.tracker_hpap {
+    min-width: 320px;
+}
+.tracker_skills {
+
+}
+

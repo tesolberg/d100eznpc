@@ -38,11 +38,18 @@ namespace D100EZNPC.Pages
 			return Content(service.GetNPC(id).ToString());
 		}
 
+		public PartialViewResult OnPostDrawHealthAndArmor(int id)
+		{
+			return Partial("_HealthAndArmorPartial", id);
+		}
+
+
 		private void UpdateNPCList()
 		{
 			NPCs = (List<NPC>)service.GetAllNPCs()!;
 			NPCs = NPCs?.OrderBy(x => x.Name).ToList()!;
 		}
+
 	}
 
 }

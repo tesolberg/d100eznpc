@@ -28,7 +28,7 @@ function AddUniqueToggleListener() {
 
         // Gets the value of the checkbox
         const uniqueChecked = $("#unique-toggle").prop("checked");
-        let npcId = $("#npc-id").val();
+        const npcId = $("#npc-id").val();
 
         // Requests change to unique status
         $.ajax({

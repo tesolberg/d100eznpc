@@ -10,46 +10,48 @@
 		<button id="edit-btn" class="btn">
 			<i class="fa-regular fa-pen-to-square"></i>
 		</button>
-		<button id="save-btn" class="btn">
+		<button id="save-btn" class="btn" type="submit" form="competence-form">
 			<i class="fa-regular fa-floppy-disk"></i>
 		</button>
 	</h1>
+</div>
 
+<div>
 	<!-- Toggle for unique/generic-->
 	@{
 		if (Model.npc.Unique)
 		{
-		<input id="unique-toggle" type="checkbox" data-toggle="toggle" data-size="small" checked data-onstyle="success" data-offstyle="secondary">
+			<input id="unique-toggle" type="checkbox" data-toggle="toggle" data-size="small" checked data-onstyle="success" data-offstyle="secondary">
 		}
 		else
 		{
 			<input id="unique-toggle" type="checkbox" data-toggle="toggle" data-size="small" unchecked data-onstyle="success" data-offstyle="secondary">
 		}
 	}
-	
-
 </div>
-
 
 <!-- Skill levels and success thresholds -->
 <div class="container">
-	<div class="row fw-bold">
-		<div class="col">
-			<span>Base</span>
-			<span class="competence-number">@Model.npc.BaseCompetence</span>
-			<input class="competence-edit" type="text" asp-for="npc.BaseCompetence" placeholder="@Model.npc.BaseCompetence">
+	<form id="competence-form" method="post" asp-page-handler="UpdateCompetenceLevels" asp-route-id="@Model.npc.Id">
+		<div class="row fw-bold">
+			<div class="col">
+				<span>Base</span>
+				<span class="competence-number">@Model.npc.BaseCompetence</span>
+				<input class="competence-edit" type="text" asp-for="npc.BaseCompetence" placeholder="@Model.npc.BaseCompetence">
+			</div>
+			<div class="col">
+				<span>Secondary</span>
+				<span class="competence-number">@Model.npc.SecondaryCompetence</span>
+				<input class="competence-edit" type="text" asp-for="npc.SecondaryCompetence" placeholder="@Model.npc.SecondaryCompetence">
+			</div>
+			<div class="col">
+				<span>Primary</span>
+				<span class="competence-number">@Model.npc.PrimaryCompetence</span>
+				<input class="competence-edit" type="text" asp-for="npc.PrimaryCompetence" placeholder="@Model.npc.PrimaryCompetence">
+			</div>
 		</div>
-		<div class="col">
-			<span>Secondary</span>
-			<span class="competence-number">@Model.npc.SecondaryCompetence</span>
-			<input class="competence-edit" type="text" asp-for="npc.SecondaryCompetence" placeholder="@Model.npc.SecondaryCompetence">
-		</div>
-		<div class="col">
-			<span>Primary</span>
-			<span class="competence-number">@Model.npc.PrimaryCompetence</span>
-			<input class="competence-edit" type="text" asp-for="npc.PrimaryCompetence" placeholder="@Model.npc.PrimaryCompetence">
-		</div>
-	</div>
+
+	</form>
 	<div class="row">
 		@{
 			int[] skillVals = { Model.npc.BaseCompetence, Model.npc.SecondaryCompetence, Model.npc.PrimaryCompetence };
@@ -75,7 +77,7 @@
 			@foreach (var s in Model.SortedSkills![0])
 			{
 				<button id="@s.Name!.Replace(" ", "-").ToLower()" class="btn skill-button base-skill">@s.Name</button>
-				
+
 			}
 		</div>
 		<div class="col secondary-skills" id="secondary-skills">
@@ -98,7 +100,6 @@
 
 @section Scripts {
 	<script src="/js/NPCDetails.js"></script>
-	<script src="https://kit.fontawesome.com/8a204a0aae.js" crossorigin="anonymous"></script>
 	<script>
 		$(function () {
 			$('input[type="checkbox"]').bootstrapToggle({
@@ -108,8 +109,8 @@
 			});
 		});
 	</script>
-	<link rel="stylesheet" href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css">
-	<link rel="stylesheet" href="/css/NPCDetails.css"/>
 	<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 }
 
+<link rel="stylesheet" href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css">
+<link rel="stylesheet" href="/css/NPCDetails.css" />
