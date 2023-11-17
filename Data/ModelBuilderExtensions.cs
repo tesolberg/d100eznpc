@@ -10,7 +10,6 @@ namespace D100EZNPC.Data
 		{
 			NPC npc1 = new NPC("Celt");
 			npc1.Id = -1;
-			npc1.HitLocations.Id = -1;
 
 			List<Weapon> weapons= new List<Weapon>();
 			Weapon shortSword = new Weapon("Short sword");

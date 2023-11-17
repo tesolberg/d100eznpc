@@ -34,7 +34,7 @@ namespace D100EZNPC.Pages
 
 		public ActionResult OnPostAddToTracker(int id)
 		{
-			_logger.LogInformation($"Adding NPC {id} to tracker");
+			_logger.LogInformation($"Trying to add NPC {id} to tracker");
 			return Content(service.GetNPC(id).ToString());
 		}
 

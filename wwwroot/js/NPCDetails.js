@@ -54,87 +54,32 @@ function AddUniqueToggleListener() {
 function AddSkillButtonListeners() {
     $('.skill-button').on('click', function (evt) {
 
-        //ToggleSkillColumn(evt.target.innerHTML)
-        FadeToNewColumn(evt.target.innerHTML);
-
         let npcId = $("#npc-id").val();
+        const skillName_ = evt.target.innerHTML.slice(0, -7);
 
         $.ajax({
             type: "POST",
             headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
             url: "/NPCDetails?handler=CycleSkillLevel",
-            data: { id: npcId, skillName: evt.target.innerHTML },
-            success: function (data) {
-                //console.log(data);
+            data: { id: npcId, skillName: skillName_ },
+            success: function (newSkillValue) {
+                evt.target.innerHTML = GetSkillAndValueText(skillName_, newSkillValue);
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log("AJAX error: " + textStatus + ", " + errorThrown);
                 console.log("Error response: " + jqXHR.responseText);
-                ToggleSkillColumn(evt.target);
-                ToggleSkillColumn(evt.target);
             }
         })
     });
 }
 
-function FadeToNewColumn(skillName) {
-    const skill = $("#" + skillName.toLowerCase().replace(/\s/g, "-"));
-
-    skill.fadeToggle("fast", function () {
-        ToggleSkillColumn(skillName);
-    });
+function GetSkillAndValueText(skillName, newSkillValue) {
+    let result = skillName + " ";
+    for (var i = 1; i <= 6; i++) {
+        result += newSkillValue >= i ? "☒" : "☐";
+    }
+    return result;
 }
-
-
-function ToggleSkillColumn(skillName) {
-
-    const skill = $("#" + skillName.toLowerCase().replace(/\s/g, "-"));
-
-    skill.fadeToggle();
-
-    // Setter ny klassetilhørighet
-    if (skill.hasClass("base-skill")) {
-        skill.removeClass("base-skill");
-        skill.addClass("secondary-skill")
-        console.log("Moving to secondary");
-        AppendAlphabetically(skill, $("#secondary-skills"));
-    }
-    else if (skill.hasClass("secondary-skill")) {
-        skill.removeClass("secondary-skill");
-        skill.addClass("primary-skill")
-        console.log("Moving to primary");
-        AppendAlphabetically(skill, $("#primary-skills"))
-    }
-    else {
-        skill.removeClass("primary-skill");
-        skill.addClass("base-skill")
-        console.log("Moving to base");
-        AppendAlphabetically(skill, $("#base-skills"))
-    }
-}
-
-
-function AppendAlphabetically(skill, parent) {
-    var skillText = skill.text();
-
-    var inserted = false;
-    parent.children().each(function () {
-        var childText = $(this).text();
-        console.log("Comparing " + skillText + " to " + childText + ": " + (skillText < childText));
-        if (skillText < childText) {
-            console.log("Inserting before: " + childText);
-            skill.insertBefore(this);
-            inserted = true;
-            return false;
-        }
-    });
-
-    // If not inserted yet, it's the last in the sort
-    if (!inserted) {
-        parent.append(skill);
-    }
-}
-
 
 
 

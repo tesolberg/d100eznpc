@@ -21,9 +21,6 @@
             <th scope="col">Name</th>
             <th scope="col">ID</th>
             <th scope="col">Description</th>
-            <th scope="col">Base</th>
-            <th scope="col">Secondary</th>
-            <th scope="col">Primary</th>
             <th scope="col">Delete</th>
         </tr>
     </thead>
@@ -36,9 +33,6 @@
                 </td>
                 <td>@npc.Id</td>
                 <td>@npc.Notes</td>
-                <td>@npc.BaseCompetence</td>
-                <td>@npc.SecondaryCompetence</td>
-                <td>@npc.PrimaryCompetence</td>
                 <td>
                     <form method="post" asp-page-handler="Delete" asp-route-id="@npc.Id">
                         <button class="btn btn-danger">Delete</button>

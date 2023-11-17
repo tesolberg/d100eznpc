@@ -30,65 +30,20 @@
 	}
 </div>
 
-<!-- Skill levels and success thresholds -->
-<div class="container">
-	<form id="competence-form" method="post" asp-page-handler="UpdateCompetenceLevels" asp-route-id="@Model.npc.Id">
-		<div class="row fw-bold">
-			<div class="col">
-				<span>Base</span>
-				<span class="competence-number">@Model.npc.BaseCompetence</span>
-				<input class="competence-edit" type="text" asp-for="npc.BaseCompetence" placeholder="@Model.npc.BaseCompetence">
-			</div>
-			<div class="col">
-				<span>Secondary</span>
-				<span class="competence-number">@Model.npc.SecondaryCompetence</span>
-				<input class="competence-edit" type="text" asp-for="npc.SecondaryCompetence" placeholder="@Model.npc.SecondaryCompetence">
-			</div>
-			<div class="col">
-				<span>Primary</span>
-				<span class="competence-number">@Model.npc.PrimaryCompetence</span>
-				<input class="competence-edit" type="text" asp-for="npc.PrimaryCompetence" placeholder="@Model.npc.PrimaryCompetence">
-			</div>
-		</div>
 
-	</form>
-	<div class="row">
-		@{
-			int[] skillVals = { Model.npc.BaseCompetence, Model.npc.SecondaryCompetence, Model.npc.PrimaryCompetence };
-		}
-		@for (int i = 0; i < skillVals.Length; i++)
-		{
-			<div class="col">
-				Very Easy &lt;= @SkillCalculator.VeryEasy(skillVals[i]) <br />
-				Easy &lt;= @SkillCalculator.Easy(skillVals[i]) <br />
-				Standard &lt;= @skillVals[i] <br />
-				Hard &lt;= @SkillCalculator.Hard(skillVals[i]) <br />
-				Herculean &lt;= @SkillCalculator.Herculean(skillVals[i])
-			</div>
-		}
-	</div>
-</div>
-
-
-<!-- Skill table -->
+<!-- Skills -->
 <div class="container">
 	<div class="row">
 		<div class="col base-skills" id="base-skills">
-			@foreach (var s in Model.SortedSkills![0])
+			@foreach (var s in Model.npc.Skills!)
 			{
-				<button id="@s.Name!.Replace(" ", "-").ToLower()" class="btn skill-button base-skill">@s.Name</button>
+				string skillText = s.Name! + " ";
+				for (int i = 1; i <= 6; i++)
+				{
+					skillText += s.Value >= i ? "☒" : "☐";
+				}
 
-			}
-		</div>
-		<div class="col secondary-skills" id="secondary-skills">
-			@foreach (var s in Model.SortedSkills![1])
-			{
-				<button id="@s.Name!.Replace(" ", "-").ToLower()" class="btn rounded skill-button secondary-skill">@s.Name</button>
-			}
-		</div><div class="col primary-skills" id="primary-skills">
-			@foreach (var s in Model.SortedSkills![2])
-			{
-				<button id="@s.Name!.Replace(" ", "-").ToLower()" class="btn skill-button primary-skill">@s.Name</button>
+				<button id="@s.Name!.Replace(" ", "-").ToLower()" class="btn skill-button base-skill">@skillText</button>
 			}
 		</div>
 	</div>

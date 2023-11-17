@@ -8,7 +8,6 @@ namespace D100EZNPC.Data
 	{
 		public DbSet<NPC> NPCs { get; set; }
 		public DbSet<Weapon> Weapons { get; set; }
-		public DbSet<HitLocation> HitLocations { get; set; }
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
